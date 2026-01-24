@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douaeoxo <douaeoxo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 02:23:22 by doabrour          #+#    #+#             */
-/*   Updated: 2026/01/24 19:31:34 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/01/24 23:55:18 by douaeoxo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,4 +118,18 @@ void	duplicate_number(t_stack *a)
 		}
 		current = current->next;
 	}
+}
+
+int is_sorted(t_stack *stack)
+{
+	if(!stack || !stack_next)
+	    return 1;
+
+	while(stack->next != NULL)
+	{
+		if(stack->value > stack->next->value)
+		     return 0;
+	    stack = stack->next;
+	}
+	return 1;
 }
