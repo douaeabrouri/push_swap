@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 02:23:13 by doabrour          #+#    #+#             */
-/*   Updated: 2026/01/18 05:19:54 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/01/23 12:39:45 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	is_sep(char c, char *charset)
 	{
 		if (charset[index] == c)
 			return (1);
-		index++;
+		index++; 
 	}
 	return (0);
 }
@@ -109,7 +109,6 @@ void	fill_stack(char **numbers, stack_t **stack)
 		new = stack_new(value);
 		if(!new)
 			//error function
-		
 	}
 }
 
@@ -141,6 +140,4 @@ t_stack *stack_add_back(t_stack **stack, t_stack *new)
 	while(back->next)
 		back = back -> next;
 	back->next =  new;
-		
-	
 }
