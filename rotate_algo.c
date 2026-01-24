@@ -1,19 +1,32 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   rotate_algo.c                                      :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2026/01/24 13:33:17 by doabrour          #+#    #+#             */
+/*   Updated: 2026/01/24 13:33:21 by doabrour         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
+
 #include "push_swap.h"
 
 void    ra(t_stack **a)
 {
     t_stack *first;
-    t_stack *last;
+    t_stack *second;
 
     if(!(*a) || !((*a)->next))
         return;
 
     first = *a;
     *a = (*a)->next;
-    last = *a;
-    while(last->next!=NULL)
-        last = last->next;
-    last->next = first;
+    second = *a;
+    while(second->next!=NULL)
+        second = second->next;
+    second->next = first;
     first->next = NULL;
 
     write(1, "ra\n", 3);
