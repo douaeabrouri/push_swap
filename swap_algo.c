@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:35:57 by doabrour          #+#    #+#             */
-/*   Updated: 2026/01/24 19:36:01 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/01/25 13:30:33 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ void	sa(t_stack **a)
 	first->next = second->next;
 	second->next = first;
 	*a = second;
+	
 	write(1, "sa\n", 3);
 }
 //swap the fisrt 2 element int the stack b

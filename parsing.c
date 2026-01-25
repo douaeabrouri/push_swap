@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/18 02:23:22 by doabrour          #+#    #+#             */
-/*   Updated: 2026/01/24 19:49:28 by doabrour         ###   ########.fr       */
+/*   Created: 2026/01/25 11:47:18 by doabrour          #+#    #+#             */
+/*   Updated: 2026/01/25 13:37:08 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,10 +88,14 @@ char 	**make_it_clear(int argc, char **argv)
 {
 	char	**nmbrs;
 	
+	if (argc < 2)
+		return (NULL);
 	if(argc == 2)
-		nmbrs = ft_split(argv[1], ' ');
+		nmbrs = split_args(argv[1], ' ');
 	else
 		nmbrs = take_arguments(argv + 1);
+	if (!nmbrs)
+		//error function
 	return (nmbrs);
 }
 void	duplicate_number(t_stack *a)
@@ -118,8 +122,4 @@ void	duplicate_number(t_stack *a)
 		}
 		current = current->next;
 	}
-}
-int	is_sorted()
-{
-	t_stack *;
 }
