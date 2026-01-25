@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 02:23:22 by doabrour          #+#    #+#             */
-/*   Updated: 2026/01/24 19:31:34 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/01/24 19:49:28 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -118,4 +118,8 @@ void	duplicate_number(t_stack *a)
 		}
 		current = current->next;
 	}
+}
+int	is_sorted()
+{
+	t_stack *;
 }
