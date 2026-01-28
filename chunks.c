@@ -1,12 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   push_swap.c                                        :+:      :+:    :+:   */
+/*   chunks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douaeoxo <douaeoxo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:36:07 by doabrour          #+#    #+#             */
-/*   Updated: 2026/01/24 19:36:08 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/01/28 16:30:27 by douaeoxo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "push_swap.h"
+
+t_stack     *bee_or_not_to_bee(t_stack **b, int value)
+{
+    if(!(*b))
+        return NULL;
+    while((*b) != NULL)
+    {
+        if((*b))
+    } 
+}
