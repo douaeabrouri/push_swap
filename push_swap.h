@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 04:33:16 by doabrour          #+#    #+#             */
-/*   Updated: 2026/01/25 13:38:29 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/01/29 18:12:44 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,8 @@ int is_sorted(t_stack *stack);
 //indexing
 t_stack	*stack_new(int value);
 t_stack *stack_add_back(t_stack **stack, t_stack *new);
+
+//stack_size
+int stack_size(t_stack *a);
 
 #endif

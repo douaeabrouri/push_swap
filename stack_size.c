@@ -1,43 +1,26 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   indexing.c                                         :+:      :+:    :+:   */
+/*   stack_size.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/25 13:37:11 by doabrour          #+#    #+#             */
-/*   Updated: 2026/01/29 18:09:57 by doabrour         ###   ########.fr       */
+/*   Created: 2026/01/29 18:10:13 by doabrour          #+#    #+#             */
+/*   Updated: 2026/01/29 18:13:05 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack	*stack_new(int value)
+int stack_size(t_stack *stack_A)
 {
-	t_stack	*node;
-	
-	node = malloc(sizeof(t_stack));
-	if(!node)
-		//error function
-	node->value = value;
-	node->index = -1;
-	node->next = NULL;
-	return (node);
-}
+	int size;
 
-t_stack *stack_add_back(t_stack **stack, t_stack *new)
-{
-	t_stack *back;
-	
-	if(!stack || !new)
-		return;
-	if(*stack == NULL)
+	size = 0;
+	while(stack_A != NULL)
 	{
-		*stack = new;
-		return;
+		size++;
+		stack_A = stack_A->next;
 	}
-	back = *stack;
-	while(back->next)
-		back = back -> next;
-	back->next =  new;
+	return (size);
 }
