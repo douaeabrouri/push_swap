@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 04:33:16 by doabrour          #+#    #+#             */
-/*   Updated: 2026/01/29 18:12:44 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/01/30 12:25:08 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,10 @@ typedef struct s_stack
 {
 	int value;
 	int index;
+	int	cost_a;
+	int	cost_b;
+	int dir_a;
+	int dir_b;
 	struct s_stack *next;
 }	t_stack;
 

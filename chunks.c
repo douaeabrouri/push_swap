@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:36:07 by doabrour          #+#    #+#             */
-/*   Updated: 2026/01/29 20:04:21 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/01/31 04:02:22 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,31 +56,28 @@ t_stack     *bee_or_not_to_bee(t_stack *b, int value)
 	return NULL;
 }
 
-int		how_much_pain_for_this_number(t_stack *b, t_stack *a, int nb)
+
+// calculate how many moves it takes to bring a number from A to its correct position in B 
+//then actually move it there
+void	how_much_pain_for_this_number(t_stack *b, t_stack *a, int nb)
 {
 	//step 1: find the position of the number and here i have a relation <cost_a = min(position, size_a - position)>
 	// i use cost_a = min(pos, size_a - pos) to found the smallest number of moves to bring a number to the top od stack_A;
 	// size_a - pos how many reverse rotations (rra) u need !
  	t_stack *tmp_a;
-	int 	const_nb;
 	int		pos_a;
 	int		size_a;
 
 	tmp_a = a;
-	const_nb = 0;
 	size_a = stack_size(a);
-	while(tmp_a != NULL)
+	while(tmp_a)
 	{
-		if(tmp_a->value != nb)
-			tmp_a = tmp_a->next;
-		else if(tmp_a->value == nb)
+		if (tmp_a->value == nb)
 		{
 			pos_a = tmp_a->index;
-			if (pos_a <= size_a / 2)
-				const_nb = pos_a;
-			else
-				const_nb = size_a - pos_a;
+			break;
 		}
+		tmp_a = tmp_a->next;
 	}
 	//step 2 : find the target node in stack B
 	int		size_b;
@@ -90,12 +87,130 @@ int		how_much_pain_for_this_number(t_stack *b, t_stack *a, int nb)
 	tmp_b = bee_or_not_to_bee(b, nb);
 	size_b = stack_size(b);
 	pos_b = tmp_b->index;
-	if(pos_b <= size_b / 2)
-		const_nb = pos_b;
-	else
-		const_nb = size_b - pos_b;
 	//step 3: Decide rotation direction
+	if (pos_a <= size_a / 2)
+	{
+		tmp_a->cost_a = pos_a;
+		tmp_a->dir_a = 1;
+	}
+	else
+	{
+		tmp_a->cost_a = size_a - pos_a;
+		tmp_a->dir_a = -1;
+	}
+	// also to b
+	if (pos_b <= size_b / 2)
+	{
+		tmp_b->cost_b = pos_b;
+		tmp_b->dir_b = 1;
+	}
+	else 
+	{
+		tmp_b->cost_b = size_b - pos_b;
+		tmp_b->dir_b = -1;
+	}
+	// step 4: combine moves 
+	while(tmp_a->cost_a > 0 && tmp_b->cost_b > 0 && tmp_a->dir_a == tmp_b->dir_b)
+	{
+		if (tmp_a->dir_a == 1)
+				rr(tmp_a, tmp_b);
+		else
+			rrr(tmp_a, tmp_b);
 
+		tmp_a->cost_a--;
+		tmp_b->cost_b--;
+	}
+	while(tmp_a->cost_a > 0)
+	{
+		if(tmp_a->dir_a == 1)
+			ra(tmp_a);
+		else
+			rra(tmp_a);
+		tmp_a->cost_a--;
+	}
+	while(tmp_b->cost_b > 0)
+	{
+		if(tmp_b->dir_b == 1)
+			rb(tmp_b);
+		else
+			rrb(tmp_b);
+		tmp_b->cost_b--;
+	}
+	pb(a,b);
+}
+
+int	get_total_cost(t_stack *node)
+{
+	if (node->dir_a == node->dir_b)
+	{
+		if (node->cost_a > node->cost_b)
+			return (node->cost_a);
+		return (node->cost_b);
+	}
+	return (node->cost_a + node->cost_b); 
+}
+void	calc_costs(t_stack **a, t_stack **b, t_stack *node)
+{
+	int size_a;
+	int size_b;
+	int	pos_a;
+	int	pos_b;
+	t_stack *target;
+
+	size_a = stack_size(a);
+	size_b = stack_size(b);
 	
+	pos_a = node->index;
+	// reverse
+	if (pos_a <= size_a / 2)
+	{
+		node->cost_a = pos_a;
+		node->dir_a = 1;
+	}
+	else
+	{
+		node->cost_a = size_a - pos_a;
+		node->dir_a = -1;
+	}
+	// also to b
+	target = bee_or_not_to_bee(b, node->value);
+	pos_b = target->index;
+	if (pos_b <= size_b / 2)
+	{
+		node->cost_b = pos_b;
+		node->dir_b = 1;
+	}
+	else 
+	{
+		node->cost_b = size_b - pos_b;
+		node->dir_b = -1;
+	}
 	
+}
+// this function manager of cheapest moves.
+void	push_the_laziest_number(t_stack **a, t_stack **b)
+{
+	//starting by scanning stack_a
+	t_stack *tmp;
+	t_stack *cheapest;
+	int		min_cost;
+	int		current_cost;
+
+	tmp = *a;
+	cheapest = NULL;
+	min_cost = 2147483647;
+
+	while(tmp)
+	{
+		calc_costs(*a, *b, tmp);
+		current_cost = get_total_cost(tmp);
+		if(current_cost < min_cost)
+		{
+			min_cost = current_cost;
+			cheapest = tmp;
+		}
+		tmp = tmp->next;
+	}
+	if (cheapest)
+		how_much_pain_for_this_number(*b, *a, cheapest->value);
 }
