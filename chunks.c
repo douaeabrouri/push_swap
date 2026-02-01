@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:36:07 by doabrour          #+#    #+#             */
-/*   Updated: 2026/01/31 04:02:22 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/01 06:42:12 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,4 +213,110 @@ void	push_the_laziest_number(t_stack **a, t_stack **b)
 	}
 	if (cheapest)
 		how_much_pain_for_this_number(*b, *a, cheapest->value);
+}
+void sort_three_in_a(t_stack **a)
+{
+	int		a;
+	int		b;
+	int		c;
+
+	a = (*a)->value;
+	b = (*a)->next->value;
+	c = (*a)->next->next->value;
+
+	if (a > b && b < c && a < c)
+		sa(*a);
+	else if (a > b && b > c)
+	{
+		sa(*a);
+		rra(*a);
+	}
+	else if (a > b && b < c && a > c)
+		ra(*a);
+	else if (a < b && b > c && a < c)
+	{
+		sa(*a);
+		ra(*a);
+	}
+	else if (a < b && b > c && a > c)
+		rra(*a);
+}
+void push_back_to_a_and_finalize(t_stack **a, t_stack **b)
+{
+	int		x;
+	t_stack *tmp;
+	t_stack *target;
+	int 	min;
+	int		max;
+
+
+	while(*b != NULL)
+	{
+		x = (*b)->value; // top of b
+		tmp = *a;
+		target = *a;
+		min = tmp->value;
+		max = tmp->value;
+		while(tmp)
+		{
+			if (tmp->value > max)
+				max  = tmp->value;
+			if (tmp->value < min)
+				min = tmp->value;
+			//case the first numbeer bigger than x
+			if (tmp->value > x && tmp->value < target->value)
+				target = tmp;
+
+			tmp = tmp->next;
+		}
+		//if x > max or x < in ->target = min
+		if (x > max || x < min)
+		{
+			tmp = *a;
+			while(tmp)
+			{
+				if(tmp->value == min)
+				{
+					target = tmp;
+					break;
+				}
+				tmp = tmp->next;
+			}
+		}
+		// rotate A until target is on top 
+		while((*a)->value != target ->value)
+		{
+			ra(a);
+		}
+		pa(a,b);
+
+		// final rotation so min is on top
+
+		tmp = *a;
+		int min_val = tmp->value;
+		while(tmp)
+		{
+			if (tmp->value < min_val)
+				min_val = tmp->value;
+			tmp = tmp->value;
+		}
+		while ((*a)->value != min_val)
+			ra(a);
+	}
+}
+
+// check the final rotate in stack a
+void	final_rotate(t_stack **a)
+{
+	int check;
+	int min;
+
+	check = 0;
+	min = (*a)->value;
+	while((*a) != NULL)
+	{
+		if (min > (*a)->next->value)
+			ra(a);
+		(*a) = (*a)->next;
+	}
 }

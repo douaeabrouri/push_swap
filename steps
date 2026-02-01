@@ -1,0 +1,9 @@
+if a > b && b < c && a < c → sa
+
+if a > b && b > c → sa + rra
+
+if a > b && b < c && a > c → ra
+
+if a < b && b > c && a < c → sa + ra
+
+if a < b && b > c && a > c → rra
