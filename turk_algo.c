@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:36:07 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/01 17:32:27 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:18:38 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -265,7 +265,6 @@ void push_back_to_a_and_finalize(t_stack **a, t_stack **b)
 		pa(a,b);
 
 		// final rotation so min is on top
-
 		tmp = *a;
 		int min_val = tmp->value;
 		while(tmp)

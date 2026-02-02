@@ -6,20 +6,12 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 11:47:18 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/01 20:32:00 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/02 13:01:36 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "push_swap.h"
-
-void	error_exit(t_stack **stack)
-{
-	if (stack)
-		free_stack(stack);
-	write(2, "Error\n", 6);
-	exit(1);
-}
 
 char **take_arguments(char **argv)
 {
@@ -103,7 +95,10 @@ char 	**make_it_clear(int argc, char **argv)
 	else
 		nmbrs = take_arguments(argv + 1);
 	if (!nmbrs)
-		//error function
+	{
+		write(2, "Error\n", 6);
+		exit(1);
+	}
 	return (nmbrs);
 }
 int	duplicate_number(t_stack *stack, int value)

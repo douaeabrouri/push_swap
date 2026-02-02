@@ -1,25 +1,21 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   free_stack.c                                       :+:      :+:    :+:   */
+/*   error_exit.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/02/01 18:34:54 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/02 12:28:47 by doabrour         ###   ########.fr       */
+/*   Created: 2026/02/02 12:29:32 by doabrour          #+#    #+#             */
+/*   Updated: 2026/02/02 12:29:52 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-void	free_stack(t_stack **stack)
+void	error_exit(t_stack **stack)
 {
-	t_stack *tmp;
-
-	while(*stack)
-	{
-		tmp = (*stack)->next;
-		free(*stack);
-		*stack = tmp;
-	}
+	if (stack)
+		free_stack(stack);
+	write(2, "Error\n", 6);
+	exit(1);
 }

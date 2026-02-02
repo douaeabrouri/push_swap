@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 06:44:19 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/01 20:32:51 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/02 13:27:08 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,20 +15,36 @@
 int main(int argc, char **argv)
 {
 	int	size_a;
-	t_stack *stack;
+	char **numbers;
+	t_stack *stack_a;
+	t_stack *stack_b;
 
-	stack = fill_stack(); 
-	size_a = stack_size(stack);
-	if (!is_sorted(stack))
-		return (1);
-	// if size == 2 -> sa
-	// if size == 3 -> sorted three_in_a
-	// else -> pb pb 
-	// while(size a > 3)
-	//{
-	// push_the_laziest_number
-	//sort_three_in_a
-	//push_back_to_a_and_finalize
-	//final_rotate	
-	//}
+	stack_b = NULL;
+	numbers = make_it_clear(argc, argv);
+	fill_stack(numbers, stack_a);
+	size_a = stack_size(stack_a);
+	if (is_sorted(stack_a))
+		return (0);
+	// if size == 2
+	if (size_a == 2)
+		sa(&stack_a);
+	//if(size == 3)
+	else if(size_a == 3)
+		sort_three_in_a(&stack_a);
+	else
+	{
+		while(size_a > 3)
+		{
+			pb(&stack_a, &stack_b);
+			size_a--;
+		}
+		sort_three_in_a(&stack_a);
+
+		while(stack_b)
+		{
+			calc_costs(&stack_a, &stack_b, stack_b);
+			push_the_laziest_number(&stack_a, &stack_b);
+		}
+		final_rotate(&stack_a);
+	}
 }
