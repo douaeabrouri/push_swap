@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 13:37:11 by doabrour          #+#    #+#             */
-/*   Updated: 2026/01/29 18:09:57 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/02 13:40:07 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_stack	*stack_new(int value)
 	return (node);
 }
 
-t_stack *stack_add_back(t_stack **stack, t_stack *new)
+void stack_add_back(t_stack **stack, t_stack *new)
 {
 	t_stack *back;
 	
@@ -39,5 +39,5 @@ t_stack *stack_add_back(t_stack **stack, t_stack *new)
 	back = *stack;
 	while(back->next)
 		back = back -> next;
-	back->next =  new;
+	back->next = new;
 }

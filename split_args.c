@@ -13,6 +13,17 @@
 #include <stdlib.h>
 #include "push_swap.h"
 
+
+int	lenght(char *str)
+{
+	int len;
+
+	len = 0;
+	while(str[len])
+		len++;
+	return len;
+}
+
 int	is_sep(char c, char *charset)
 {
 	int	index;
@@ -65,7 +76,7 @@ char	*ft_strdup(char *start, int len)
 	tmp[index] = '\0';
 	return (tmp);
 }
-char	**split_args(char *str, char *charset)
+char	**split_args(char *str, char charset)
 {
 	int		index;
 	int		i;
@@ -75,14 +86,14 @@ char	**split_args(char *str, char *charset)
 
 	index = 0;
 	i = 0;
-	tmp = (char **)malloc(sizeof(char *) * (count_word(str, charset) + 1));
+	tmp = (char **)malloc(sizeof(char *) * (count_word(str, &charset) + 1));
 	while (str[index])
 	{
-		while (is_sep(str[index], charset) && str[index])
+		while (is_sep(str[index], &charset) && str[index])
 			index++;
 		start = &str[index];
 		len = 0;
-		while (!is_sep(str[index], charset) && str[index])
+		while (!is_sep(str[index], &charset) && str[index])
 		{
 			index++;
 			len++;

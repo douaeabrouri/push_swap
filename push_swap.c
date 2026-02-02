@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 06:44:19 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/02 13:27:08 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/02 14:05:22 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int main(int argc, char **argv)
 
 	stack_b = NULL;
 	numbers = make_it_clear(argc, argv);
-	fill_stack(numbers, stack_a);
+	fill_stack(numbers, &stack_a);
 	size_a = stack_size(stack_a);
 	if (is_sorted(stack_a))
 		return (0);
@@ -47,4 +47,4 @@ int main(int argc, char **argv)
 		}
 		final_rotate(&stack_a);
 	}
-}
+} 

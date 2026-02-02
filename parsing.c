@@ -6,12 +6,13 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 11:47:18 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/02 13:01:36 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/02 16:55:34 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "push_swap.h"
+
 
 char **take_arguments(char **argv)
 {
@@ -27,7 +28,7 @@ char **take_arguments(char **argv)
 	len = 0;
 	while(argv[len])
 	{
-		copy[len] = ft_strdup(argv[len]);
+		copy[len] = ft_strdup(argv[len], lenght(argv[1]));
 		if (!copy)
 			return (NULL);
 		len++;
@@ -36,31 +37,28 @@ char **take_arguments(char **argv)
 	return (copy);
 }
 
-int	is_valid_number(int argc, char **argv)
+int	is_valid_number(char *str)
 {
-	int index;
-	int i;
-	int counter;
+	int	i;
 
 	i = 0;
-	counter = 0;
-	while(i < argc)
+	if (!str || !str[0])
+		return (0);
+
+	// optional sign
+	if (str[i] == '+' || str[i] == '-')
+		i++;
+
+	// must have at least one digit
+	if (!str[i])
+		return (0);
+
+	while (str[i])
 	{
-		index = 0;
-		while(argv[i][index])
-		{
-			if(argv[i][index] == '-' || argv[i][index] == '+')
-				index++;
-			while((argv[index] >= '0' && argv[i][index] <= '9') || argv[i][index] == 32)
-			{
-				counter++;
-				index++;
-			}
-		}
+		if (str[i] < '0' || str[i] > '9')
+			return (0);
 		i++;
 	}
-	if (counter == 0)
-		return (0);
 	return (1);
 }
 long ft_atoi(const char *arg)
@@ -112,7 +110,7 @@ int	duplicate_number(t_stack *stack, int value)
 	return (0);
 }
 
-void	fill_stack(char **numbers, stack_t **stack)
+void	fill_stack(char **numbers, t_stack **stack)
 {
 	int index;
 	long value;
