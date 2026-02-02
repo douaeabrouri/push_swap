@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 04:33:16 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/01 20:22:33 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/02 12:14:31 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,6 +70,7 @@ void	push_the_laziest_number(t_stack **a, t_stack **b);
 void	sort_three_in_a(t_stack **a);
 void	push_back_to_a_and_finalize(t_stack **a, t_stack **b);
 void	final_rotate(t_stack **a);
+
 
 
 #endif
