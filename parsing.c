@@ -6,12 +6,20 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 11:47:18 by doabrour          #+#    #+#             */
-/*   Updated: 2026/01/25 13:37:08 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/01 20:32:00 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "push_swap.h"
+
+void	error_exit(t_stack **stack)
+{
+	if (stack)
+		free_stack(stack);
+	write(2, "Error\n", 6);
+	exit(1);
+}
 
 char **take_arguments(char **argv)
 {
@@ -98,28 +106,38 @@ char 	**make_it_clear(int argc, char **argv)
 		//error function
 	return (nmbrs);
 }
-void	duplicate_number(t_stack *a)
+int	duplicate_number(t_stack *stack, int value)
 {
-	t_stack	*current;
-	t_stack	*runner;
-
-
-	if(!(a))
-		return;
-	
-	current = a;
-	while(current)
+	while(stack)
 	{
-		runner = current->next;
-		while(runner)
-		{
-			if(current->value == runner->value)
-			{
-				printf("error\n");
-				break;
-			}
-			runner = runner->next;
-		}
-		current = current->next;
+		if (stack->value == value)
+			return (1);
+		stack = stack->next;
+	}
+	return (0);
+}
+
+void	fill_stack(char **numbers, stack_t **stack)
+{
+	int index;
+	long value;
+	t_stack *new;
+
+	index = 0;
+	while(numbers[index])
+	{
+		if(!is_valid_number(numbers[index]))
+			error_exit(stack);
+		value = ft_atoi(numbers[index]);
+		if(value < INT_MIN || value > INT_MAX)
+			error_exit(stack);
+		if(duplicate_number(*stack, (int)value))
+			error_exit(stack);
+		new = stack_new((int)value);
+		if(!new)
+			error_exit(stack);
+		stack_add_back(stack, new);
+		index++;
+
 	}
 }

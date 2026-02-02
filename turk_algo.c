@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   chunks.c                                           :+:      :+:    :+:   */
+/*   turk_algo.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:36:07 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/01 06:42:12 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/01 17:32:27 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -214,33 +214,7 @@ void	push_the_laziest_number(t_stack **a, t_stack **b)
 	if (cheapest)
 		how_much_pain_for_this_number(*b, *a, cheapest->value);
 }
-void sort_three_in_a(t_stack **a)
-{
-	int		a;
-	int		b;
-	int		c;
 
-	a = (*a)->value;
-	b = (*a)->next->value;
-	c = (*a)->next->next->value;
-
-	if (a > b && b < c && a < c)
-		sa(*a);
-	else if (a > b && b > c)
-	{
-		sa(*a);
-		rra(*a);
-	}
-	else if (a > b && b < c && a > c)
-		ra(*a);
-	else if (a < b && b > c && a < c)
-	{
-		sa(*a);
-		ra(*a);
-	}
-	else if (a < b && b > c && a > c)
-		rra(*a);
-}
 void push_back_to_a_and_finalize(t_stack **a, t_stack **b)
 {
 	int		x;
@@ -308,15 +282,39 @@ void push_back_to_a_and_finalize(t_stack **a, t_stack **b)
 // check the final rotate in stack a
 void	final_rotate(t_stack **a)
 {
-	int check;
-	int min;
+	t_stack	*tmp;
+	int		min;
+	int		min_pos;
+	int		i;
+	int		size;
 
-	check = 0;
-	min = (*a)->value;
-	while((*a) != NULL)
+	tmp = *a;
+	min = tmp->value;
+	min_pos = 0;
+	i = 0;
+	size = stack_size(*a);
+
+	/* step 1: find min value and its position */
+	while (tmp)
 	{
-		if (min > (*a)->next->value)
+		if (tmp->value < min)
+		{
+			min = tmp->value;
+			min_pos = i;
+		}
+		tmp = tmp->next;
+		i++;
+	}
+
+	/* step 2: rotate in the cheapest direction */
+	if (min_pos <= size / 2)
+	{
+		while ((*a)->value != min)
 			ra(a);
-		(*a) = (*a)->next;
+	}
+	else
+	{
+		while ((*a)->value != min)
+			rra(a);
 	}
 }

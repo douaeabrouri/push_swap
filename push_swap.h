@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 04:33:16 by doabrour          #+#    #+#             */
-/*   Updated: 2026/01/30 12:25:08 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/01 20:22:33 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,20 +45,31 @@ void	rrb(t_stack **b);
 void	rrr(t_stack **a, t_stack **b);
 
 //parsing function 
-char **take_arguments(char **argv);
-int	is_valid_number(int argc, char **argv);
-long ft_atoi(const char *arg);
+char	**take_arguments(char **argv);
+int		is_valid_number(int argc, char **argv);
+long	ft_atoi(const char *arg);
 char 	**make_it_clear(int argc, char **argv);
-void	duplicate_number(t_stack *a);
+int 	duplicate_number(t_stack *a, int value);
 
 //is_sorted
-int is_sorted(t_stack *stack);
+int		is_sorted(t_stack *stack);
 
 //indexing
 t_stack	*stack_new(int value);
 t_stack *stack_add_back(t_stack **stack, t_stack *new);
 
 //stack_size
-int stack_size(t_stack *a);
+int		stack_size(t_stack *a);
+
+//turk algo
+t_stack *bee_or_not_to_bee(t_stack *b, int value);
+void	how_much_pain_for_this_number(t_stack *b, t_stack *a, int nb);
+int		get_total_cost(t_stack *node);
+void	calc_costs(t_stack **a, t_stack **b, t_stack *node);
+void	push_the_laziest_number(t_stack **a, t_stack **b);
+void	sort_three_in_a(t_stack **a);
+void	push_back_to_a_and_finalize(t_stack **a, t_stack **b);
+void	final_rotate(t_stack **a);
+
 
 #endif

@@ -93,21 +93,3 @@ char	**split_args(char *str, char *charset)
 	tmp[i] = NULL;
 	return (tmp);
 }
-
-void	fill_stack(char **numbers, stack_t **stack)
-{
-	int index;
-	int value;
-	t_stack *new;
-
-	index = 0;
-	while(index < index)
-	{
-		value = ft_atoi(numbers[index]);
-		if(value < INT_MIN || value > INT_MAX )
-			//error function
-		new = stack_new(value);
-		if(!new)
-			//error function
-	}
-}
