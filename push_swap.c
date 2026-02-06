@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 06:44:19 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/03 13:23:49 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/06 17:16:07 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,8 +28,7 @@ int main(int argc, char **argv)
 	if (is_sorted(stack_a))
 		return (0);
 	// if size == 2
-	if (size_a == 2)
-		sa(&stack_a);
+ 
 	//if(size == 3)
 	else if(size_a == 3)
 		sort_three_in_a(&stack_a);
@@ -44,9 +43,8 @@ int main(int argc, char **argv)
 
 		while(stack_b)
 		{
-			calc_costs(&stack_a, &stack_b, stack_b);
 			push_the_laziest_number(&stack_a, &stack_b);
 		}
 		final_rotate(&stack_a);
 	}
-} 
+}

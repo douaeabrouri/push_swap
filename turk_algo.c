@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:36:07 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/03 13:26:18 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/06 19:13:04 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,6 @@ t_stack     *bee_or_not_to_bee(t_stack *b, int value)
 
     if(!b)
         return NULL;
-
 	//find max and min
 	min = b->value;
 	max = b->value;
@@ -101,7 +100,14 @@ void	how_much_pain_for_this_number(t_stack **a, t_stack **b, t_stack *node)
 			rrb(b);
 		node->cost_b--;
 	}
-
+	//You MUST rotate A until node is on top BEFORE pb
+	while((*a)->value != node->value)
+	{
+		if (node->dir_a == 1)
+			ra(a);
+		else
+			rra(a);
+	}
 	pb(a, b);
 }
 
@@ -125,8 +131,8 @@ void	calc_costs(t_stack **a, t_stack **b, t_stack *node)
 
 	size_a = stack_size(*a);
 	size_b = stack_size(*b);
-	
-	pos_a = node->index;
+	update_index(*a);
+	update_index(*b);
 	// reverse
 	if (pos_a <= size_a / 2)
 	{
@@ -140,18 +146,18 @@ void	calc_costs(t_stack **a, t_stack **b, t_stack *node)
 	}
 	// also to b
 	target = bee_or_not_to_bee(*b, node->value);
-	pos_b = target->index;
+	if (!target)
+		target = *b;
 	if (pos_b <= size_b / 2)
 	{
 		node->cost_b = pos_b;
 		node->dir_b = 1;
 	}
-	else 
+	else
 	{
 		node->cost_b = size_b - pos_b;
 		node->dir_b = -1;
 	}
-	
 }
 // this function manager of cheapest moves.
 void	push_the_laziest_number(t_stack **a, t_stack **b)
