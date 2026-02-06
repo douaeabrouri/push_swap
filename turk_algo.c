@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:36:07 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/02 16:53:44 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/03 13:26:18 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ t_stack     *bee_or_not_to_bee(t_stack *b, int value)
 		if(max < tmp->value)
 			max = tmp->value;
 		if(min > tmp->value)
+			min = tmp->value;
 		tmp = tmp->next;
 	}
 	//do the  case 1 & 2

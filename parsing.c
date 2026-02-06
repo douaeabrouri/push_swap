@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 11:47:18 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/02 16:55:34 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/03 13:25:26 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,13 +22,13 @@ char **take_arguments(char **argv)
 	len = 0;
 	while(argv[len])
 		len++;
-	copy = (char **)malloc(sizeof(char) * (len + 1));
+	copy = malloc(sizeof(char *) * (len + 1));
 	if (!copy)
 		return (NULL);
 	len = 0;
 	while(argv[len])
 	{
-		copy[len] = ft_strdup(argv[len], lenght(argv[1]));
+		copy[len] = ft_strdup(argv[len], lenght(argv[len]));
 		if (!copy)
 			return (NULL);
 		len++;
@@ -68,6 +68,7 @@ long ft_atoi(const char *arg)
 	int		sign;
 
 	index = 0;
+	nb = 0;
 	sign = 1;
 	if(arg[index] == '-' || arg[index] == '+')
 	{
@@ -88,7 +89,7 @@ char 	**make_it_clear(int argc, char **argv)
 	
 	if (argc < 2)
 		return (NULL);
-	if(argc == 2)
+	if (argc == 2)
 		nmbrs = split_args(argv[1], ' ');
 	else
 		nmbrs = take_arguments(argv + 1);

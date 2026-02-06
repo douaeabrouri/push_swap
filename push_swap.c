@@ -6,11 +6,12 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 06:44:19 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/02 14:05:22 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/03 13:23:49 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 int main(int argc, char **argv)
 {
@@ -20,6 +21,7 @@ int main(int argc, char **argv)
 	t_stack *stack_b;
 
 	stack_b = NULL;
+	stack_a = NULL;
 	numbers = make_it_clear(argc, argv);
 	fill_stack(numbers, &stack_a);
 	size_a = stack_size(stack_a);

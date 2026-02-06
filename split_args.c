@@ -13,7 +13,6 @@
 #include <stdlib.h>
 #include "push_swap.h"
 
-
 int	lenght(char *str)
 {
 	int len;
