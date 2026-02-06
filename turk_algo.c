@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:36:07 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/06 19:13:04 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/06 22:47:45 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,8 @@ void	calc_costs(t_stack **a, t_stack **b, t_stack *node)
 	int	pos_a;
 	int	pos_b;
 
+	pos_a = 0;
+	pos_b = 0;
 	size_a = stack_size(*a);
 	size_b = stack_size(*b);
 	update_index(*a);

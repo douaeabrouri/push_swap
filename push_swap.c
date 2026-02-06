@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 06:44:19 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/06 17:16:07 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/06 22:42:43 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,7 @@ int main(int argc, char **argv)
 		sort_three_in_a(&stack_a);
 
 		while(stack_b)
-		{
 			push_the_laziest_number(&stack_a, &stack_b);
-		}
 		final_rotate(&stack_a);
 	}
 }
