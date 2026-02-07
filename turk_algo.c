@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:36:07 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/06 22:47:45 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/06 23:28:32 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,14 +100,6 @@ void	how_much_pain_for_this_number(t_stack **a, t_stack **b, t_stack *node)
 			rrb(b);
 		node->cost_b--;
 	}
-	//You MUST rotate A until node is on top BEFORE pb
-	while((*a)->value != node->value)
-	{
-		if (node->dir_a == 1)
-			ra(a);
-		else
-			rra(a);
-	}
 	pb(a, b);
 }
 
@@ -124,17 +116,26 @@ int	get_total_cost(t_stack *node)
 void	calc_costs(t_stack **a, t_stack **b, t_stack *node)
 {
 	t_stack *target;
+	t_stack *tmp;
 	int size_a;
 	int size_b;
 	int	pos_a;
 	int	pos_b;
 
-	pos_a = 0;
-	pos_b = 0;
 	size_a = stack_size(*a);
 	size_b = stack_size(*b);
 	update_index(*a);
 	update_index(*b);
+	//find the position of node in stack_a
+	pos_a = 0;
+	tmp = *a;
+	while(tmp)
+	{
+		if (tmp->value == node->value)
+			break;
+		pos_a++;
+		tmp = tmp->next;
+	}
 	// reverse
 	if (pos_a <= size_a / 2)
 	{
@@ -149,7 +150,20 @@ void	calc_costs(t_stack **a, t_stack **b, t_stack *node)
 	// also to b
 	target = bee_or_not_to_bee(*b, node->value);
 	if (!target)
-		target = *b;
+		pos_b  = 0;
+	else 
+	{
+		pos_b = 0;
+		tmp = *a;
+
+		while(tmp)
+		{
+			if (tmp->value == target->value)
+				break;
+			pos_b++;
+			tmp = tmp->next;
+		}
+	}
 	if (pos_b <= size_b / 2)
 	{
 		node->cost_b = pos_b;
@@ -191,34 +205,44 @@ void	push_the_laziest_number(t_stack **a, t_stack **b)
 
 void push_back_to_a_and_finalize(t_stack **a, t_stack **b)
 {
-	int		x;
+	int x;
 	t_stack *tmp;
 	t_stack *target;
-	int 	min;
-	int		max;
-
+	int min;
+	int max;
 
 	while(*b != NULL)
 	{
 		x = (*b)->value; // top of b
 		tmp = *a;
-		target = *a;
 		min = tmp->value;
 		max = tmp->value;
+		target = NULL;
+		
+		// Find min and max in A
 		while(tmp)
 		{
 			if (tmp->value > max)
-				max  = tmp->value;
+				max = tmp->value;
 			if (tmp->value < min)
 				min = tmp->value;
-			//case the first numbeer bigger than x
-			if (tmp->value > x && tmp->value < target->value)
-				target = tmp;
-
 			tmp = tmp->next;
 		}
-		//if x > max or x < in ->target = min
-		if (x > max || x < min)
+		
+		// Find the target position: smallest number in A that's bigger than x
+		tmp = *a;
+		while(tmp)
+		{
+			if (tmp->value > x)
+			{
+				if (!target || tmp->value < target->value)
+					target = tmp;
+			}
+			tmp = tmp->next;
+		}
+		
+		// If x > max or x < min, target should be the min
+		if (!target)
 		{
 			tmp = *a;
 			while(tmp)
@@ -231,35 +255,24 @@ void push_back_to_a_and_finalize(t_stack **a, t_stack **b)
 				tmp = tmp->next;
 			}
 		}
-		// rotate A until target is on top 
-		while((*a)->value != target ->value)
-		{
+		
+		// Rotate A until target is on top
+		while((*a)->value != target->value)
 			ra(a);
-		}
-		pa(a,b);
-
-		// final rotation so min is on top
-		tmp = *a;
-		int min_val = tmp->value;
-		while(tmp)
-		{
-			if (tmp->value < min_val)
-				min_val = tmp->value;
-			tmp = tmp->next;
-		}
-		while ((*a)->value != min_val)
-			ra(a);
+		
+		// Push from B to A
+		pa(a, b);
 	}
 }
 
 // check the final rotate in stack a
 void	final_rotate(t_stack **a)
 {
-	t_stack	*tmp;
-	int		min;
-	int		min_pos;
-	int		i;
-	int		size;
+	t_stack *tmp;
+	int min;
+	int min_pos;
+	int i;
+	int size;
 
 	tmp = *a;
 	min = tmp->value;
@@ -267,7 +280,7 @@ void	final_rotate(t_stack **a)
 	i = 0;
 	size = stack_size(*a);
 
-	/* step 1: find min value and its position */
+	// Find min value and its position
 	while (tmp)
 	{
 		if (tmp->value < min)
@@ -279,7 +292,7 @@ void	final_rotate(t_stack **a)
 		i++;
 	}
 
-	/* step 2: rotate in the cheapest direction */
+	// Rotate in the cheapest direction
 	if (min_pos <= size / 2)
 	{
 		while ((*a)->value != min)

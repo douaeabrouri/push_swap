@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 13:37:11 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/02 13:40:07 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/07 01:44:55 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,10 +18,13 @@ t_stack	*stack_new(int value)
 	
 	node = malloc(sizeof(t_stack));
 	if(!node)
-		//error function
+		return NULL;
 	node->value = value;
 	node->index = -1;
-	node->next = NULL;
+	node->cost_a = 0;      // ✅ FIX: Initialize these fields!
+	node->cost_b = 0;
+	node->dir_a = 0;
+	node->dir_b = 0;
 	return (node);
 }
 
