@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:36:07 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/06 23:28:32 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/07 16:57:56 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,7 +203,7 @@ void	push_the_laziest_number(t_stack **a, t_stack **b)
 		how_much_pain_for_this_number(a, b, cheapest);
 }
 
-void push_back_to_a_and_finalize(t_stack **a, t_stack **b)
+void	push_back_to_a_and_finalize(t_stack **a, t_stack **b)
 {
 	int x;
 	t_stack *tmp;
@@ -218,7 +218,6 @@ void push_back_to_a_and_finalize(t_stack **a, t_stack **b)
 		min = tmp->value;
 		max = tmp->value;
 		target = NULL;
-		
 		// Find min and max in A
 		while(tmp)
 		{
@@ -228,7 +227,6 @@ void push_back_to_a_and_finalize(t_stack **a, t_stack **b)
 				min = tmp->value;
 			tmp = tmp->next;
 		}
-		
 		// Find the target position: smallest number in A that's bigger than x
 		tmp = *a;
 		while(tmp)
@@ -240,7 +238,6 @@ void push_back_to_a_and_finalize(t_stack **a, t_stack **b)
 			}
 			tmp = tmp->next;
 		}
-		
 		// If x > max or x < min, target should be the min
 		if (!target)
 		{
@@ -255,10 +252,9 @@ void push_back_to_a_and_finalize(t_stack **a, t_stack **b)
 				tmp = tmp->next;
 			}
 		}
-		
 		// Rotate A until target is on top
 		while((*a)->value != target->value)
-			ra(a);
+			ra(a); 
 		
 		// Push from B to A
 		pa(a, b);
