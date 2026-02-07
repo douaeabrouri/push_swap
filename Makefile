@@ -6,20 +6,24 @@
 #    By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/24 19:35:39 by doabrour          #+#    #+#              #
-#    Updated: 2026/02/07 19:15:24 by doabrour         ###   ########.fr        #
+#    Updated: 2026/02/07 22:05:32 by doabrour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-PINK		= \033[38;5;213m
-LAVENDER	= \033[38;5;183m
-MINT		= \033[38;5;158m
-PEACH		= \033[38;5;217m
-LILAC		= \033[38;5;189m
-ROSE		= \033[38;5;211m
-GOLD		= \033[38;5;222m
-CORAL		= \033[38;5;210m
-BOLD_PINK	= \033[1;38;5;213m
-BOLD_MINT	= \033[1;38;5;158m
+# ================================ COLORS ==================================== #
+RED			= \033[0;31m
+GREEN		= \033[0;32m
+YELLOW		= \033[0;33m
+BLUE		= \033[0;34m
+PURPLE		= \033[0;35m
+CYAN		= \033[0;36m
+BOLD_RED	= \033[1;31m
+BOLD_GREEN	= \033[1;32m
+BOLD_YELLOW	= \033[1;33m
+BOLD_BLUE	= \033[1;34m
+BOLD_PURPLE	= \033[1;35m
+BOLD_CYAN	= \033[1;36m
+BOLD_WHITE	= \033[1;37m
 RESET		= \033[0m
 
 NAME		:= push_swap
@@ -41,91 +45,141 @@ SRCS		:=parsing.c \
 
 
 OBJS		= $(SRCS:.c=.o)
+TOTAL_FILES	= $(words $(SRCS))
+CURRENT		= 0
 
 # ================================ RULES ===================================== #
 
-all: banner $(NAME) success
+all: header $(NAME) footer
 
-banner:
+header:
+	@clear
 	@echo ""
-	@echo "$(BOLD_PINK)"
-	@echo "   ♡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━♡"
-	@echo "   ♡                                                 ♡"
-	@echo "   ♡         ✿  P U S H   S W A P  ✿              ♡"
-	@echo "   ♡                                                 ♡"
-	@echo "   ♡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━♡"
+	@echo "$(BOLD_CYAN)"
+	@echo "        ██████╗ ██╗   ██╗███████╗██╗  ██╗    ███████╗██╗    ██╗ █████╗ ██████╗ "
+	@echo "        ██╔══██╗██║   ██║██╔════╝██║  ██║    ██╔════╝██║    ██║██╔══██╗██╔══██╗"
+	@echo "        ██████╔╝██║   ██║███████╗███████║    ███████╗██║ █╗ ██║███████║██████╔╝"
+	@echo "        ██╔═══╝ ██║   ██║╚════██║██╔══██║    ╚════██║██║███╗██║██╔══██║██╔═══╝ "
+	@echo "        ██║     ╚██████╔╝███████║██║  ██║    ███████║╚███╔███╔╝██║  ██║██║     "
+	@echo "        ╚═╝      ╚═════╝ ╚══════╝╚═╝  ╚═╝    ╚══════╝ ╚══╝╚══╝ ╚═╝  ╚═╝╚═╝     "
 	@echo "$(RESET)"
-	@echo "$(LAVENDER)        ･ﾟ✧ Compiling with love ✧ﾟ･$(RESET)"
+	@echo "$(BOLD_PURPLE)        ═══════════════════════════════════════════════════════════════$(RESET)"
+	@echo "$(BOLD_YELLOW)                              ⚡ BY doabrour ⚡                          $(RESET)"
+	@echo "$(BOLD_PURPLE)        ═══════════════════════════════════════════════════════════════$(RESET)"
 	@echo ""
+	@echo "$(BOLD_GREEN)        🚀 Starting compilation...$(RESET)"
+	@echo ""
+
+define show_progress
+	$(eval CURRENT=$(shell echo $$(($(CURRENT)+1))))
+	$(eval PERCENT=$(shell echo $$(($(CURRENT)*100/$(TOTAL_FILES)))))
+	@printf "$(BOLD_CYAN)[$(RESET)"
+	@printf "$(BOLD_GREEN)"
+	@for i in `seq 1 $(shell echo $$(($(PERCENT)/2)))`; do printf "█"; done
+	@printf "$(RESET)"
+	@for i in `seq 1 $(shell echo $$((50-$(PERCENT)/2)))`; do printf "░"; done
+	@printf "$(BOLD_CYAN)]$(RESET) "
+	@printf "$(BOLD_GREEN)%3d%%$(RESET) " $(PERCENT)
+endef
 
 %.o: %.c
-	@printf "$(PINK)   ✿  $(RESET)Compiling $(PEACH)%-25s$(RESET)" $<
-	@$(CC) $(CFLAGS) -c $< -o $@
-	@printf "$(MINT) ✓$(RESET)\n"
+	@$(call show_progress)
+	@printf "$(CYAN)⚙  $(RESET)Compiling: $(BOLD_WHITE)%-25s$(RESET)" $<
+	@$(CC) $(CFLAGS) -c $< -o $@ 2>/dev/null || (printf "$(BOLD_RED) ✗$(RESET)\n"; exit 1)
+	@printf "$(BOLD_GREEN) ✓$(RESET)\n"
 
 $(NAME): $(OBJS)
 	@echo ""
-	@printf "$(LAVENDER)   ･ﾟ･ Linking files together$(RESET)"
+	@printf "$(BOLD_PURPLE)        🔗 Linking objects together...$(RESET)"
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
-	@printf "$(MINT) ･ﾟ･$(RESET)\n"
+	@printf "$(BOLD_GREEN) ✓$(RESET)\n"
 	@echo ""
 
-success:
-	@echo "$(BOLD_PINK)"
-	@echo "   ♡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━♡"
-	@echo "   ♡                                                 ♡"
-	@echo "   ♡          ✨  Success, babe! ✨                 ♡"
-	@echo "   ♡                                                 ♡"
-	@echo "   ♡         $(GOLD)./push_swap$(BOLD_PINK) is ready! 💕             ♡"
-	@echo "   ♡                                                 ♡"
-	@echo "   ♡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━♡"
+footer:
+	@echo "$(BOLD_GREEN)"
+	@echo "        ╔═══════════════════════════════════════════════════════════════╗"
+	@echo "        ║                                                               ║"
+	@echo "        ║               ✨  COMPILATION SUCCESSFUL! ✨                 	║"
+	@echo "        ║                                                               ║"
+	@echo "        ║                  $(BOLD_CYAN)./$(NAME) is ready!$(BOLD_GREEN)                      ║"
+	@echo "        ║                                                               ║"
+	@echo "        ╚═══════════════════════════════════════════════════════════════╝"
 	@echo "$(RESET)"
-	@echo "$(PEACH)   ･ﾟ･ You did great! Keep going! ･ﾟ･$(RESET)"
+	@echo "$(BOLD_YELLOW)        💡 Try: ./push_swap 4 67 3 87 23$(RESET)"
 	@echo ""
 
 clean:
 	@echo ""
-	@echo "$(ROSE)"
-	@echo "   ♡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━♡"
-	@echo "   ♡                                                 ♡"
-	@echo "   ♡           ･ﾟ･ Tidying up ･ﾟ･                  ♡"
-	@echo "   ♡                                                 ♡"
-	@echo "   ♡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━♡"
+	@echo "$(BOLD_RED)"
+	@echo "        ╔═══════════════════════════════════════════════════════════════╗"
+	@echo "        ║                                                               ║"
+	@echo "        ║                🧹  CLEANING IN PROGRESS  🧹                  	║"
+	@echo "        ║                                                               ║"
+	@echo "        ╚═══════════════════════════════════════════════════════════════╝"
 	@echo "$(RESET)"
 	@echo ""
-	@for file in $(OBJS); do \
+	@COUNT=0; \
+	for file in $(OBJS); do \
 		if [ -f $$file ]; then \
-			printf "$(CORAL)   ♡  Removing $(PEACH)%-30s$(RESET)" $$file; \
+			COUNT=$$((COUNT+1)); \
+			printf "$(RED)        🗑  Removing: $(BOLD_WHITE)%-30s$(RESET)" $$file; \
 			$(RM) $$file; \
-			printf "$(ROSE) ✓$(RESET)\n"; \
+			printf "$(BOLD_RED) ✗$(RESET)\n"; \
 		fi; \
-	done
-	@echo ""
-	@echo "$(MINT)   ✿ All clean and pretty! ✿$(RESET)"
+	done; \
+	if [ $$COUNT -eq 0 ]; then \
+		echo "$(YELLOW)        ⚠  Nothing to clean!$(RESET)"; \
+	else \
+		echo ""; \
+		echo "$(BOLD_GREEN)        ✨ Removed $$COUNT object file(s)!$(RESET)"; \
+	fi
 	@echo ""
 
 fclean: clean
-	@echo "$(ROSE)"
-	@echo "   ♡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━♡"
-	@echo "  ♡                                               ♡"
-	@echo "  	♡         ･ﾟ･ Deep cleaning ･ﾟ･                 ♡"
-	@echo "  ♡                                                 ♡"
-	@echo "   ♡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━♡"
+	@echo "$(BOLD_RED)"
+	@echo "        ╔═══════════════════════════════════════════════════════════════╗"
+	@echo "        ║                                                               ║"
+	@echo "        ║                 🔥  FULL CLEAN MODE  🔥                      	║"
+	@echo "        ║                                                               ║"
+	@echo "        ╚═══════════════════════════════════════════════════════════════╝"
 	@echo "$(RESET)"
 	@echo ""
 	@if [ -f $(NAME) ]; then \
-		printf "$(CORAL)   ♡  Removing $(GOLD)$(NAME)$(RESET)"; \
+		printf "$(RED)        💥 Destroying executable: $(BOLD_WHITE)$(NAME)$(RESET)"; \
 		$(RM) $(NAME); \
-		printf "$(ROSE) ✓$(RESET)\n"; \
+		printf "$(BOLD_RED) ✗$(RESET)\n"; \
+		echo ""; \
+		echo "$(BOLD_GREEN)        🎉 Everything is wiped clean!$(RESET)"; \
 	else \
-		echo "$(LAVENDER)   ･ﾟ･ Nothing to clean, babe! ･ﾟ･$(RESET)"; \
+		echo "$(YELLOW)        ⚠  No executable to remove!$(RESET)"; \
 	fi
-	@echo ""
-	@echo "$(MINT)   ✨ Sparkly clean! ✨$(RESET)"
 	@echo ""
 
 re: fclean all
 
 bonus: all
 
-.PHONY: all clean fclean re bonus banner success
+norm:
+	@echo ""
+	@echo "$(BOLD_CYAN)        📋 Running Norminette...$(RESET)"
+	@echo ""
+	@norminette $(SRCS) *.h || true
+	@echo ""
+
+help:
+	@echo ""
+	@echo "$(BOLD_CYAN)        ╔═══════════════════════════════════════════════════════════════╗"
+	@echo "        ║                      PUSH_SWAP MAKEFILE                       ║"
+	@echo "        ╚═══════════════════════════════════════════════════════════════╝$(RESET)"
+	@echo ""
+	@echo "$(BOLD_GREEN)        Available commands:$(RESET)"
+	@echo ""
+	@echo "        $(BOLD_YELLOW)make$(RESET)          - Compile the project"
+	@echo "        $(BOLD_YELLOW)make clean$(RESET)    - Remove object files"
+	@echo "        $(BOLD_YELLOW)make fclean$(RESET)   - Remove object files and executable"
+	@echo "        $(BOLD_YELLOW)make re$(RESET)       - Recompile everything"
+	@echo "        $(BOLD_YELLOW)make norm$(RESET)     - Run norminette"
+	@echo "        $(BOLD_YELLOW)make help$(RESET)     - Show this help message"
+	@echo ""
+
+.PHONY: all clean fclean re bonus norm help header footer
