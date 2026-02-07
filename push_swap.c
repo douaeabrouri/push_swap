@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 06:44:19 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/07 17:26:44 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/07 17:28:01 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,6 +63,5 @@ int main(int argc, char **argv)
 	// Clean up
 	free_stack(&stack_a);
 	free_stack(&stack_b);
-	
 	return (0);
 }
