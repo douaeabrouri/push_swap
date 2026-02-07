@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 06:44:19 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/07 02:02:29 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/07 05:46:34 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,23 +26,24 @@ int main(int argc, char **argv)
 	
 	// Parse and validate input
 	numbers = make_it_clear(argc, argv);
+	size_a = 0;
 	if (!numbers)
 		return (0);
 	
 	// Fill stack A
 	fill_stack(numbers, &stack_a);
-	
+	write_stack(&stack_a);
 	// Check if already sorted
+
 	if (is_sorted(stack_a))
 	{
 		free_stack(&stack_a);
 		return (0);
 	}
-	
 	size_a = stack_size(stack_a);
 	
 	// Handle special cases
-	printf("4\n");
+
 	if (size_a == 2)
 	{
 		if (stack_a->value > stack_a->next->value)
@@ -56,7 +57,6 @@ int main(int argc, char **argv)
 	{
 		// Turk algorithm for larger stacks
 		// Push all but 3 to B
-		printf("bunda3\n");
 		while (size_a > 3)
 		{
 			pb(&stack_a, &stack_b);
@@ -68,23 +68,18 @@ int main(int argc, char **argv)
 		
 		// Push back from B to A using the cheapest move
 
-		printf("bunda2\n");
 		while (stack_b)
 		{
 			push_the_laziest_number(&stack_a, &stack_b);
-			printf("%d\n",stack_b->value);
-			sleep(1);
+			// printf("%d\n",stack_b->value);
+			// sleep(1);
 		}
-
-		
-		printf("bunda\n");
 		// Final rotation to put min on top
 		final_rotate(&stack_a);
 	}
-	
+	// write_stack(&stack_b);0
 	// Clean up
 	free_stack(&stack_a);
 	free_stack(&stack_b);
-	
 	return (0);
 }

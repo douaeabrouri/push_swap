@@ -6,11 +6,12 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 15:28:15 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/07 02:23:40 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/07 03:29:39 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
+#include <stdio.h>
 
 void update_index(t_stack *stack)
 {

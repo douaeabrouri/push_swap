@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 04:33:16 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/06 15:52:33 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/07 04:09:45 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,5 +87,6 @@ char	**split_args(char *str, char charset);
 
 //helper functions
 void	update_index(t_stack	*stack);
+void	write_stack(t_stack **stack);
 
 #endif
