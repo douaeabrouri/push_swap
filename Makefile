@@ -6,38 +6,126 @@
 #    By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/24 19:35:39 by doabrour          #+#    #+#              #
-#    Updated: 2026/02/07 17:22:25 by doabrour         ###   ########.fr        #
+#    Updated: 2026/02/07 19:15:24 by doabrour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME := push_swap.a
+PINK		= \033[38;5;213m
+LAVENDER	= \033[38;5;183m
+MINT		= \033[38;5;158m
+PEACH		= \033[38;5;217m
+LILAC		= \033[38;5;189m
+ROSE		= \033[38;5;211m
+GOLD		= \033[38;5;222m
+CORAL		= \033[38;5;210m
+BOLD_PINK	= \033[1;38;5;213m
+BOLD_MINT	= \033[1;38;5;158m
+RESET		= \033[0m
 
-SRC := error.exit.c free_stack.c helper_func.c indexing.c \
-		is_sorted.c parsing.c push_algo.c push_swap.c reverse_algo \
-		rotate_algo.c sorted_three_in_stack.c split_args.c stack_size.c \
-		wap_algo.c turk_algo.c 
+NAME		:= push_swap
 
-OBG := $(SRC:.c=.o)
+SRCS		:=parsing.c \
+			free_stack.c \
+			error_exit.c \
+			is_sorted.c \
+			indexing.c \
+			push_algo.c \
+			push_swap.c \
+			reverse_algo.c \
+			rotate_algo.c \
+			sorted_three_in_a.c \
+			split_args.c \
+			stack_size.c \
+			swap_algo.c \
+			turk_algo.c
 
 
-CC := cc
-CFLAGS := -Wall -Wextra -Werror
-LIB := ar rcs
+OBJS		= $(SRCS:.c=.o)
 
-#------targets-------
-all: $(NAME)
+# ================================ RULES ===================================== #
 
-$(NAME): $(OBG)
-	$(CC) $(CFLAGS) $(OBG) -o $(NAME)
+all: banner $(NAME) success
 
-%.o: %.c push_swap.h
-	$(CC) $(CFLAGS) -c %< -o $@
+banner:
+	@echo ""
+	@echo "$(BOLD_PINK)"
+	@echo "   ♡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━♡"
+	@echo "   ♡                                                 ♡"
+	@echo "   ♡         ✿  P U S H   S W A P  ✿              ♡"
+	@echo "   ♡                                                 ♡"
+	@echo "   ♡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━♡"
+	@echo "$(RESET)"
+	@echo "$(LAVENDER)        ･ﾟ✧ Compiling with love ✧ﾟ･$(RESET)"
+	@echo ""
+
+%.o: %.c
+	@printf "$(PINK)   ✿  $(RESET)Compiling $(PEACH)%-25s$(RESET)" $<
+	@$(CC) $(CFLAGS) -c $< -o $@
+	@printf "$(MINT) ✓$(RESET)\n"
+
+$(NAME): $(OBJS)
+	@echo ""
+	@printf "$(LAVENDER)   ･ﾟ･ Linking files together$(RESET)"
+	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
+	@printf "$(MINT) ･ﾟ･$(RESET)\n"
+	@echo ""
+
+success:
+	@echo "$(BOLD_PINK)"
+	@echo "   ♡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━♡"
+	@echo "   ♡                                                 ♡"
+	@echo "   ♡          ✨  Success, babe! ✨                 ♡"
+	@echo "   ♡                                                 ♡"
+	@echo "   ♡         $(GOLD)./push_swap$(BOLD_PINK) is ready! 💕             ♡"
+	@echo "   ♡                                                 ♡"
+	@echo "   ♡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━♡"
+	@echo "$(RESET)"
+	@echo "$(PEACH)   ･ﾟ･ You did great! Keep going! ･ﾟ･$(RESET)"
+	@echo ""
 
 clean:
-	@rm -f $(OBG) 
+	@echo ""
+	@echo "$(ROSE)"
+	@echo "   ♡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━♡"
+	@echo "   ♡                                                 ♡"
+	@echo "   ♡           ･ﾟ･ Tidying up ･ﾟ･                  ♡"
+	@echo "   ♡                                                 ♡"
+	@echo "   ♡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━♡"
+	@echo "$(RESET)"
+	@echo ""
+	@for file in $(OBJS); do \
+		if [ -f $$file ]; then \
+			printf "$(CORAL)   ♡  Removing $(PEACH)%-30s$(RESET)" $$file; \
+			$(RM) $$file; \
+			printf "$(ROSE) ✓$(RESET)\n"; \
+		fi; \
+	done
+	@echo ""
+	@echo "$(MINT)   ✿ All clean and pretty! ✿$(RESET)"
+	@echo ""
 
 fclean: clean
-	@rm -f $(NAME)
+	@echo "$(ROSE)"
+	@echo "   ♡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━♡"
+	@echo "  ♡                                               ♡"
+	@echo "  	♡         ･ﾟ･ Deep cleaning ･ﾟ･                 ♡"
+	@echo "  ♡                                                 ♡"
+	@echo "   ♡━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━♡"
+	@echo "$(RESET)"
+	@echo ""
+	@if [ -f $(NAME) ]; then \
+		printf "$(CORAL)   ♡  Removing $(GOLD)$(NAME)$(RESET)"; \
+		$(RM) $(NAME); \
+		printf "$(ROSE) ✓$(RESET)\n"; \
+	else \
+		echo "$(LAVENDER)   ･ﾟ･ Nothing to clean, babe! ･ﾟ･$(RESET)"; \
+	fi
+	@echo ""
+	@echo "$(MINT)   ✨ Sparkly clean! ✨$(RESET)"
+	@echo ""
 
 re: fclean all
 
+bonus: all
+
+.PHONY: all clean fclean re bonus banner success
