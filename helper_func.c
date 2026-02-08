@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 15:28:15 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/07 03:29:39 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/08 06:31:20 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,4 +38,20 @@ void	write_stack(t_stack **stack)
 		printf("%d\n", tmp->value);
 		tmp = tmp->next;
 	}
+}
+
+int		is_only_spaces(char *str)
+{
+	int index;
+
+	if (!str)
+		return (1);
+	index = 0;
+	while(str[index])
+	{
+		if(str[index] != ' ' && str[index] != '\t' && str[index] != '\n')
+			return 0;
+		index++;
+	}
+	return (1);
 }

@@ -6,56 +6,45 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 13:33:17 by doabrour          #+#    #+#             */
-/*   Updated: 2026/01/24 13:33:21 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/08 04:01:00 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 
 #include "push_swap.h"
 
+void rotate(t_stack **stack)
+{
+	t_stack *first;
+	t_stack *last;
+
+	if (!*stack || !(*stack)->next)
+		return;
+
+	first = *stack;
+	*stack = first->next;
+	last = *stack;
+	while (last->next)
+		last = last->next;
+	last->next = first;
+	first->next = NULL;
+}
+
 void    ra(t_stack **a)
 {
-    t_stack *first;
-    t_stack *second;
-
-    if(!(*a) || !((*a)->next))
-        return;
-
-    first = *a;
-    *a = (*a)->next;
-    second = *a;
-    while(second->next!=NULL)
-        second = second->next;
-    second->next = first;
-    first->next = NULL;
-
+	rotate(a);
     write(1, "ra\n", 3);
 }
 
 void    rb(t_stack **b)
 {
-    t_stack *first;
-    t_stack *second;
-
-    if(!(*b) || !((*b)->next))
-        return;
-    first = *b;
-    *b = (*b)->next;
-    second = *b;
-    while(second->next != NULL)
-        second = second->next;
-    second->next = first;
-    first->next= NULL;
-
+	rotate(b);	
     write(1, "rb\n", 3);
 }
 
 void    rr(t_stack **a, t_stack **b)
 {
-    if(!(*a) || !(*b))
-        return;
-    ra(a);
-    rb(b);
-
+	rotate(a);
+	rotate(b);
     write(1, "rr\n", 3);
 }

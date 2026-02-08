@@ -6,71 +6,47 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 13:33:09 by doabrour          #+#    #+#             */
-/*   Updated: 2026/01/24 17:02:24 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/08 04:04:11 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
  
 #include "push_swap.h"
 
-void	rra(t_stack	**a)
+void	reverse_rotate(t_stack **stack)
 {
-	t_stack *first;
+		t_stack *prev;
 	t_stack *last;
-	t_stack *second_last;
 
-	if(!(*a) || !((*a)->next))
+	if (!stack || !(*stack) || !(*stack)->next)
 		return;
-	
-	first = *a;
-	last = *a;
-	second_last = NULL;
 
-	while(last->next != NULL)
+	prev = NULL;
+	last = *stack;
+	while (last->next)
 	{
-		second_last = last;
+		prev = last;
 		last = last->next;
 	}
+	prev->next = NULL;
+	last->next = *stack;
+	*stack = last;
+}
 
-	second_last->next = NULL;
-	last->next = first;
-	*a = last;
-
+void	rra(t_stack	**a)
+{
+	reverse_rotate(a);
 	write(1, "rra\n", 4);
 }
 void	rrb(t_stack **b)
 {
-	t_stack *first;
-	t_stack *last;
-	t_stack *second_last;
-
-	if(!(*b) || !((*b)->next))
-		return;
-
-	first = *b;
-	last = *b;
-	second_last = NULL;
-
-	while((last)->next != NULL)
-	{
-		second_last = last;
-		last = last->next;
-	}
-
-	second_last->next = NULL;
-	last->next = first;
-	*b = last;
-
+	reverse_rotate(b);
 	write(1, "rrb\n", 4);
 }
 
 void rrr(t_stack **a, t_stack **b)
 {
-	if(!(*a) || !(*b))
-		return;
-
-	rra(a);
-	rrb(b);
-
+	reverse_rotate(a);
+	reverse_rotate(b);
 	write(1, "rrr\n", 4);
 }

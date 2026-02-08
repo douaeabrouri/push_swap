@@ -6,13 +6,12 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 11:47:18 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/06 23:46:02 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/08 02:43:57 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "push_swap.h"
-
 
 char **take_arguments(char **argv)
 {
@@ -31,7 +30,7 @@ char **take_arguments(char **argv)
 	while(argv[len])
 	{
 		copy[len] = ft_strdup(argv[len], lenght(argv[len]));
-		if (!copy[len])  // ✅ Check if ft_strdup failed
+		if (!copy[len])  
 		{
 			// Free already allocated strings
 			while(len > 0)
@@ -102,11 +101,18 @@ char **make_it_clear(int argc, char **argv)
 		return (NULL);
 	
 	if (argc == 2)
+	{
+		if (!argv[1] || !argv[1][0] || is_only_spaces(argv[1]))
+		{
+			write(2, "Error\n", 6);
+			exit(1);
+		}
 		nmbrs = split_args(argv[1], ' ');
+	}
 	else
 		nmbrs = take_arguments(argv + 1);
 	
-	if (!nmbrs)
+	if (!nmbrs || !nmbrs[0])
 	{
 		write(2, "Error\n", 6);
 		exit(1);

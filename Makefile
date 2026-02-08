@@ -6,7 +6,7 @@
 #    By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/24 19:35:39 by doabrour          #+#    #+#              #
-#    Updated: 2026/02/07 22:05:32 by doabrour         ###   ########.fr        #
+#    Updated: 2026/02/08 03:03:10 by doabrour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -41,7 +41,8 @@ SRCS		:=parsing.c \
 			split_args.c \
 			stack_size.c \
 			swap_algo.c \
-			turk_algo.c
+			turk_algo.c \
+			helper_func.c
 
 
 OBJS		= $(SRCS:.c=.o)

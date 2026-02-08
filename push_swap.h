@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 04:33:16 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/07 04:09:45 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/08 04:03:21 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ typedef struct s_stack
 }	t_stack;
 
 //operations function
+void	swap(t_stack **stack);
 void	sa(t_stack **a);
 void	sb(t_stack **b);
 void	ss(t_stack **a, t_stack **b);
@@ -36,10 +37,12 @@ void	ss(t_stack **a, t_stack **b);
 void	pa(t_stack **a, t_stack **b);
 void	pb(t_stack **a, t_stack **b);
 
+void	rotate(t_stack **stack);
 void	ra(t_stack **a);
 void	rb(t_stack **b);
 void	rr(t_stack **a, t_stack **b);
 
+void	reverse_rotate(t_stack **stack);
 void	rra(t_stack **a);
 void	rrb(t_stack **b);
 void	rrr(t_stack **a, t_stack **b);
@@ -88,5 +91,6 @@ char	**split_args(char *str, char charset);
 //helper functions
 void	update_index(t_stack	*stack);
 void	write_stack(t_stack **stack);
+int		is_only_spaces(char *str);
 
 #endif
