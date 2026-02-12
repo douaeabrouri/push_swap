@@ -6,13 +6,17 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 06:44:19 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/12 16:53:45 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/12 19:54:49 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
+void leaks()
+{
+	system("leaks -q push_swap");
+}
 int main(int argc, char **argv)
 {
 	int size_a;
@@ -23,6 +27,7 @@ int main(int argc, char **argv)
 	stack_b = NULL;
 	stack_a = NULL;
 
+	atexit(leaks);
 	// Parse and validate input
 	numbers = make_it_clear(argc, argv);
 	if (!numbers)
