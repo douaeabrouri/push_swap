@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 06:44:19 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/08 03:35:05 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/12 15:53:26 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,21 +22,20 @@ int main(int argc, char **argv)
 
 	stack_b = NULL;
 	stack_a = NULL;
-	
+
 	// Parse and validate input
 	numbers = make_it_clear(argc, argv);
 	if (!numbers)
 		return (0);
 	// Fill stack A
 	fill_stack(numbers, &stack_a);
-	// write_stack(&stack_a);
+	size_a = stack_size(stack_a);
 	// Check if already sorted
 	if (is_sorted(stack_a))
 	{
 		free_stack(&stack_a);
 		return (0);
 	}
-	size_a = stack_size(stack_a);
 	// Handle special cases
 	if (size_a == 2)
 	{
@@ -45,20 +44,23 @@ int main(int argc, char **argv)
 	}
 	else if (size_a == 3)
 		sort_three_in_a(&stack_a);
+	else if (size_a <= 5)
+	{
+		sort_five(&stack_a, &stack_b);
+	}
 	else
 	{
 		// Turk algorithm for larger stacks
-		// Push all but 3 to B
-		while (size_a > 3)
-		{
-			pb(&stack_a, &stack_b);
+		pb(&stack_a, &stack_b);
+		pb(&stack_a, &stack_b);
+		size_a -= 2;
+		while (size_a > 5) {
+			push_the_laziest_number(&stack_a, &stack_b);
 			size_a--;
 		}
-		// Sort the remaining 3 in A
-		sort_three_in_a(&stack_a);
+		sort_five(&stack_a, &stack_b);
 		// Push back from B to A using the cheapest mov
-		push_back_to_a_and_finalize(&stack_a, &stack_b);
-		final_rotate(&stack_a);
+
 	}
 	// Clean up
 	free_stack(&stack_a);

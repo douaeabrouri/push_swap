@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 04:33:16 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/08 04:03:21 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/12 15:53:43 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,5 +92,13 @@ char	**split_args(char *str, char charset);
 void	update_index(t_stack	*stack);
 void	write_stack(t_stack **stack);
 int		is_only_spaces(char *str);
+int find_min_position(t_stack *stack);
+void push_smallest_to_b(t_stack **a, t_stack **b);
+void sort_five(t_stack **a, t_stack **b);
+t_stack *find_cheapest_in_a(t_stack *a);
+void push_cheapest_to_b(t_stack **a, t_stack **b);
+void push_back_to_a(t_stack **a, t_stack **b);
+
+//final push to stack_A
 
 #endif

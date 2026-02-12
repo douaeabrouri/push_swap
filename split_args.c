@@ -88,11 +88,11 @@ char	**split_args(char *str, char charset)
 	tmp = (char **)malloc(sizeof(char *) * (count_word(str, &charset) + 1));
 	while (str[index])
 	{
-		while (is_sep(str[index], &charset) && str[index])
+		while (str[index] == charset && str[index])
 			index++;
 		start = &str[index];
 		len = 0;
-		while (!is_sep(str[index], &charset) && str[index])
+		while (str[index] != charset && str[index])
 		{
 			index++;
 			len++;

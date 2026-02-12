@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 11:47:18 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/08 02:43:57 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/12 15:21:17 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ char **take_arguments(char **argv)
 		}
 		len++;
 	}
-	copy[len] = NULL;  // ✅ FIX: NULL not "\0"!
+	copy[len] = NULL;
 	return (copy);
 }
 
