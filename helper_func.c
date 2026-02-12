@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 15:28:15 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/12 16:52:16 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/12 17:08:31 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,20 +23,6 @@ void update_index(t_stack *stack)
 		stack->index = i;
 		stack = stack->next;
 		i++;
-	}
-}
-
-void	write_stack(t_stack **stack)
-{
-	int index;
-	t_stack *tmp;
-
-	index = 0;
-	tmp = *stack;
-	while(tmp)
-	{
-		printf("%d\n", tmp->value);
-		tmp = tmp->next;
 	}
 }
 
@@ -215,9 +201,9 @@ void push_cheapest_to_b(t_stack **a, t_stack **b)
 // Push back from B to A (NO final rotation inside!)
 void push_back_to_a(t_stack **a, t_stack **b)
 {
-	int x;
 	t_stack *tmp;
 	t_stack *target;
+	int x;
 	int min;
 	int max;
 	int pos;
