@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:36:07 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/12 15:56:11 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/12 15:58:13 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -149,10 +149,7 @@ void	calc_costs(t_stack **a, t_stack **b, t_stack *node)
 	target = bee_or_not_to_bee(*b, node->value);
 	// printf("%i -> %i ", node->value, target->value);
 	if (!target)
-	{
-		printf("hey\n");
 		pos_b  = 0;
-	}
 	else 
 	{
 		pos_b = 0;

@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 06:44:19 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/12 15:53:26 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:53:45 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ int main(int argc, char **argv)
 		}
 		sort_five(&stack_a, &stack_b);
 		// Push back from B to A using the cheapest mov
-
+		while(stack_b != NULL)
+			push_back_to_a(&stack_a, &stack_b);
+		final_rotate(&stack_a);
 	}
 	// Clean up
 	free_stack(&stack_a);

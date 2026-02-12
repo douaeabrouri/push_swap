@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 15:28:15 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/12 15:39:41 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/12 16:52:16 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -234,7 +234,6 @@ void push_back_to_a(t_stack **a, t_stack **b)
 		return;
 	if (!a || !(*a))
 		return;
-	
 	while (tmp)
 	{
 		if (tmp->value > max)
