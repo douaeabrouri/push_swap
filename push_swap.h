@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   push_swap.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
+/*   By: douaeoxo <douaeoxo@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 04:33:16 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/12 15:53:43 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/13 22:06:25 by douaeoxo         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,6 @@ int		get_total_cost(t_stack *node);
 void	calc_costs(t_stack **a, t_stack **b, t_stack *node);
 void	push_the_laziest_number(t_stack **a, t_stack **b);
 void	sort_three_in_a(t_stack **a);
-void	push_back_to_a_and_finalize(t_stack **a, t_stack **b);
 void	final_rotate(t_stack **a);
 
 // error exit function
