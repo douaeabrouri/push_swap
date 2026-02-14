@@ -6,16 +6,16 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 15:28:15 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/12 17:08:31 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 10:51:04 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-void update_index(t_stack *stack)
+void	update_index(t_stack *stack)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	while (stack)
@@ -26,34 +26,33 @@ void update_index(t_stack *stack)
 	}
 }
 
-int		is_only_spaces(char *str)
+int	is_only_spaces(char	*str)
 {
-	int index;
+	int	index;
 
 	if (!str)
 		return (1);
 	index = 0;
 	while(str[index])
 	{
-		if(str[index] != ' ' && str[index] != '\t' && str[index] != '\n')
+		if (str[index] != ' ' && str[index] != '\t' && str[index] != '\n')
 			return 0;
 		index++;
 	}
 	return (1);
 }
 
-int find_min_position(t_stack *stack)
+int	find_min_position(t_stack *stack)
 {
-	t_stack *tmp;
-	int min;
-	int pos;
-	int min_pos;
+	t_stack	*tmp;
+	int		min;
+	int		pos;
+	int		min_pos;
 
 	tmp = stack;
 	min = stack->value;
 	pos = 0;
 	min_pos = 0;
-
 	while (tmp)
 	{
 		if (tmp->value < min)
@@ -67,14 +66,13 @@ int find_min_position(t_stack *stack)
 	return (min_pos);
 }
 // Push the smallest number from A to B
-void push_smallest_to_b(t_stack **a, t_stack **b)
+void	push_smallest_to_b(t_stack **a, t_stack **b)
 {
 	int min_pos;
 	int size;
 
 	size = stack_size(*a);
 	min_pos = find_min_position(*a);
-
 	// Rotate to bring min to top
 	if (min_pos <= size / 2)
 	{
@@ -92,28 +90,22 @@ void push_smallest_to_b(t_stack **a, t_stack **b)
 			min_pos++;
 		}
 	}
-	
-	// Push to B
 	pb(a, b);
 }
 
 // Optimized sort for 4-5 numbers
-void sort_five(t_stack **a, t_stack **b)
+void	sort_five(t_stack **a, t_stack **b)
 {
 	int size;
 
 	size = stack_size(*a);
-	
 	// Push smallest to B
-	push_smallest_to_b(a, b);
-	
+	push_smallest_to_b(a, b);	
 	// If size was 5, push second smallest too
 	if (size == 5)
 		push_smallest_to_b(a, b);
-	
 	// Sort remaining 3 in A
 	sort_three_in_a(a);
-	
 	// Push back from B (they're already in order!)
 	pa(a, b);
 	if (size == 5)
@@ -286,18 +278,4 @@ void push_back_to_a(t_stack **a, t_stack **b)
 	}
 	// Push from B to A
 	pa(a, b);
-}
-void	free_split(char **numbers)
-{
-	int index;
-
-	index = 0;
-	if (!numbers)
-		return ;
-	while(numbers[index] != NULL)
-	{
-		free(numbers[index]);
-		index++;
-	}
-	free(numbers);
 }

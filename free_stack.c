@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   free_stack.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douaeoxo <douaeoxo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 18:34:54 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/13 21:57:39 by douaeoxo         ###   ########.fr       */
+/*   Updated: 2026/02/14 10:51:19 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,4 +22,18 @@ void	free_stack(t_stack	**stack)
 		free(*stack);
 		*stack = tmp;
 	}
+}
+void	free_split(char **numbers)
+{
+	int	index;
+
+	index = 0;
+	if (!numbers)
+		return ;
+	while (numbers[index] != NULL)
+	{
+		free(numbers[index]);
+		index++;
+	}
+	free(numbers);
 }
