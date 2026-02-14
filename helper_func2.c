@@ -6,13 +6,13 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 11:32:48 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/14 15:41:47 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 15:52:58 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-int	find_min_position(t_stack *stack)
+int	find_min_position2(t_stack *stack)
 {
 	t_stack	*tmp;
 	int		min;
@@ -43,7 +43,7 @@ void	push_smallest_to_b(t_stack **a, t_stack **b)
 	int	size;
 
 	size = stack_size(*a);
-	min_pos = find_min_position(*a);
+	min_pos = find_min_position2(*a);
 	if (min_pos <= size / 2)
 	{
 		while (min_pos > 0)
