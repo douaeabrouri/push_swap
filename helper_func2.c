@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 11:32:48 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/14 15:23:41 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 15:41:47 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,17 +101,14 @@ void	set_cost_and_dir(t_stack *node, int pos, int size, int is_a)
 			node->dir_b = 1;
 		}
 	}
+	else if (is_a)
+	{
+		node->cost_a = size - pos;
+		node->dir_a = -1;
+	}
 	else
 	{
-		if (is_a)
-		{
-			node->cost_a = size - pos;
-			node->dir_a = -1;
-		}
-		else
-		{
-			node->cost_b = size - pos;
-			node->dir_b = -1;
-		}
+		node->cost_b = size - pos;
+		node->dir_b = -1;
 	}
 }
