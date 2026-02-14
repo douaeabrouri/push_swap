@@ -6,117 +6,39 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 15:28:15 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/14 10:54:53 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 12:17:15 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
 
-int	find_min_position(t_stack *stack)
+// Find cheapest number to push from A to B
+t_stack	*find_cheapest_in_a(t_stack	*a)
 {
 	t_stack	*tmp;
-	int		min;
+	t_stack	*cheapest;
+	int		min_cost;
 	int		pos;
-	int		min_pos;
-
-	tmp = stack;
-	min = stack->value;
-	pos = 0;
-	min_pos = 0;
-	while (tmp)
-	{
-		if (tmp->value < min)
-		{
-			min = tmp->value;
-			min_pos = pos;
-		}
-		tmp = tmp->next;
-		pos++;
-	}
-	return (min_pos);
-}
-// Push the smallest number from A to B
-void	push_smallest_to_b(t_stack **a, t_stack **b)
-{
-	int min_pos;
-	int size;
-
-	size = stack_size(*a);
-	min_pos = find_min_position(*a);
-	// Rotate to bring min to top
-	if (min_pos <= size / 2)
-	{
-		while (min_pos > 0)
-		{
-			ra(a);
-			min_pos--;
-		}
-	}
-	else
-	{
-		while (min_pos < size)
-		{
-			rra(a);
-			min_pos++;
-		}
-	}
-	pb(a, b);
-}
-
-// Optimized sort for 4-5 numbers
-void	sort_five(t_stack **a, t_stack **b)
-{
-	int size;
-
-	size = stack_size(*a);
-	// Push smallest to B
-	push_smallest_to_b(a, b);	
-	// If size was 5, push second smallest too
-	if (size == 5)
-		push_smallest_to_b(a, b);
-	// Sort remaining 3 in A
-	sort_three_in_a(a);
-	// Push back from B (they're already in order!)
-	pa(a, b);
-	if (size == 5)
-		pa(a, b);
-}
-
-// Find cheapest number to push from A to B
-t_stack *find_cheapest_in_a(t_stack *a)
-{
-	t_stack *tmp;
-	t_stack *cheapest;
-	int min_cost;
-	int pos;
-	int size;
-	int cost;
-
+	int		size;
+	int		cost;
+	
 	tmp = a;
 	cheapest = a;
 	size = stack_size(a);
 	pos = 0;
 	min_cost = size;
-	
 	while (tmp)
-	{
-		// Calculate cost to bring this element to top
-		if (pos <= size / 2)
-			cost = pos;  // ra cost
-		else
-			cost = size - pos;  // rra cost
-		
+	{// Calculate cost to bring this element to top
+		cost  = (pos <= size / 2) ? pos : size - pos;
 		if (cost < min_cost)
 		{
 			min_cost = cost;
 			cheapest = tmp;
 		}
-		
 		tmp = tmp->next;
 		pos++;
-	}
-	
+	}	
 	return (cheapest);
 }
 
@@ -130,34 +52,23 @@ void push_cheapest_to_b(t_stack **a, t_stack **b)
 
 	cheapest = find_cheapest_in_a(*a);
 	size = stack_size(*a);
-	pos = 0;
-	
-	// Find position of cheapest
+	pos = 0;// Find position of cheapest
 	tmp = *a;
 	while (tmp && tmp != cheapest)
 	{
 		pos++;
 		tmp = tmp->next;
-	}
-	
-	// Rotate to bring cheapest to top
+	}// Rotate to bring cheapest to top
 	if (pos <= size / 2)
 	{
-		while (pos > 0)
-		{
+		while ((pos--) > 0)
 			ra(a);
-			pos--;
-		}
 	}
 	else
 	{
-		while (pos < size)
-		{
+		while ((pos++) < size)
 			rra(a);
-			pos++;
-		}
 	}
-	
 	pb(a, b);
 }
 
@@ -191,7 +102,6 @@ void push_back_to_a(t_stack **a, t_stack **b)
 			min = tmp->value;
 		tmp = tmp->next;
 	}
-	
 	// Find target: smallest number in A that's bigger than x
 	tmp = *a;
 	while (tmp)
@@ -203,7 +113,6 @@ void push_back_to_a(t_stack **a, t_stack **b)
 		}
 		tmp = tmp->next;
 	}
-	
 	// If no target, x should go before min
 	if (!target)
 	{
@@ -218,7 +127,6 @@ void push_back_to_a(t_stack **a, t_stack **b)
 			tmp = tmp->next;
 		}
 	}
-	
 	// Find position of target
 	pos = 0;
 	tmp = *a;
@@ -227,9 +135,7 @@ void push_back_to_a(t_stack **a, t_stack **b)
 		pos++;
 		tmp = tmp->next;
 	}
-	
 	size = stack_size(*a);
-	
 	// Rotate A to bring target to top
 	if (pos <= size / 2)
 	{
@@ -247,6 +153,5 @@ void push_back_to_a(t_stack **a, t_stack **b)
 			pos++;
 		}
 	}
-	// Push from B to A
 	pa(a, b);
 }
