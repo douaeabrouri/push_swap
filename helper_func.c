@@ -6,41 +6,12 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 15:28:15 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/14 10:51:04 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 10:54:53 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
-
-void	update_index(t_stack *stack)
-{
-	int	i;
-
-	i = 0;
-	while (stack)
-	{
-		stack->index = i;
-		stack = stack->next;
-		i++;
-	}
-}
-
-int	is_only_spaces(char	*str)
-{
-	int	index;
-
-	if (!str)
-		return (1);
-	index = 0;
-	while(str[index])
-	{
-		if (str[index] != ' ' && str[index] != '\t' && str[index] != '\n')
-			return 0;
-		index++;
-	}
-	return (1);
-}
 
 int	find_min_position(t_stack *stack)
 {

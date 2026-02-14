@@ -6,38 +6,32 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 11:47:18 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/12 15:21:17 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 11:05:08 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <stdio.h>
 #include "push_swap.h"
 
-char **take_arguments(char **argv)
+char	**take_arguments(char **argv)
 {
-	int len;
-	char **copy;
+	int		len;
+	char	**copy;
 
 	len = 0;
-	while(argv[len])
+	while (argv[len])
 		len++;
-	
 	copy = malloc(sizeof(char *) * (len + 1));
 	if (!copy)
 		return (NULL);
-	
 	len = 0;
-	while(argv[len])
+	while (argv[len])
 	{
 		copy[len] = ft_strdup(argv[len], lenght(argv[len]));
-		if (!copy[len])  
+		if (!copy[len])
 		{
-			// Free already allocated strings
-			while(len > 0)
-			{
-				len--;
-				free(copy[len]);
-			}
+			while (len > 0)
+				free(copy[--len]);
 			free(copy);
 			return (NULL);
 		}
@@ -47,22 +41,17 @@ char **take_arguments(char **argv)
 	return (copy);
 }
 
-int	is_valid_number(char *str)
+int	is_valid_number(char	*str)
 {
 	int	i;
 
 	i = 0;
 	if (!str || !str[0])
 		return (0);
-
-	// optional sign
 	if (str[i] == '+' || str[i] == '-')
 		i++;
-
-	// must have at least one digit
 	if (!str[i])
 		return (0);
-
 	while (str[i])
 	{
 		if (str[i] < '0' || str[i] > '9')
@@ -71,7 +60,8 @@ int	is_valid_number(char *str)
 	}
 	return (1);
 }
-long ft_atoi(const char *arg)
+
+long	ft_atoi(const char *arg)
 {
 	int		index;
 	long	nb;
@@ -80,48 +70,23 @@ long ft_atoi(const char *arg)
 	index = 0;
 	nb = 0;
 	sign = 1;
-	if(arg[index] == '-' || arg[index] == '+')
+	if (arg[index] == '-' || arg[index] == '+')
 	{
 		if (arg[index] == '-')
 			sign *= -1;
- 		index++;
+		index++;
 	}
-	while((arg[index] >= '0' && arg[index] <= '9') || arg[index] == 32)
+	while ((arg[index] >= '0' && arg[index] <= '9') || arg[index] == 32)
 	{
 		nb = nb * 10 + (arg[index] - '0');
 		index++;
 	}
 	return (sign * nb);
 }
-char **make_it_clear(int argc, char **argv)
-{
-	char **nmbrs;
-	
-	if (argc < 2)
-		return (NULL);
-	
-	if (argc == 2)
-	{
-		if (!argv[1] || !argv[1][0] || is_only_spaces(argv[1]))
-		{
-			write(2, "Error\n", 6);
-			exit(1);
-		}
-		nmbrs = split_args(argv[1], ' ');
-	}
-	else
-		nmbrs = take_arguments(argv + 1);
-	
-	if (!nmbrs || !nmbrs[0])
-	{
-		write(2, "Error\n", 6);
-		exit(1);
-	}
-	return (nmbrs);
-}
+
 int	duplicate_number(t_stack *stack, int value)
 {
-	while(stack)
+	while (stack)
 	{
 		if (stack->value == value)
 			return (1);
@@ -130,30 +95,25 @@ int	duplicate_number(t_stack *stack, int value)
 	return (0);
 }
 
-void fill_stack(char **numbers, t_stack **stack)
+void	fill_stack(char	**numbers, t_stack	**stack)
 {
-	int index;
-	long value;
-	t_stack *new;
+	int		index;
+	long	value;
+	t_stack	*new;
 
 	index = 0;
-	while(numbers[index])
+	while (numbers[index])
 	{
-		if(!is_valid_number(numbers[index]))
+		if (!is_valid_number(numbers[index]))
 			error_exit(stack);
-		
 		value = ft_atoi(numbers[index]);
-		
-		if(value < INT_MIN || value > INT_MAX)
+		if (value < INT_MIN || value > INT_MAX)
 			error_exit(stack);
-		
-		if(duplicate_number(*stack, (int)value))
+		if (duplicate_number(*stack, (int)value))
 			error_exit(stack);
-		
 		new = stack_new((int)value);
-		if(!new)
+		if (!new)
 			error_exit(stack);
-		
 		stack_add_back(stack, new);
 		index++;
 	}

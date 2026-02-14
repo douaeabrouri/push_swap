@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   indexing.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: douaeoxo <douaeoxo@student.42.fr>          +#+  +:+       +#+        */
+/*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/25 13:37:11 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/13 22:01:24 by douaeoxo         ###   ########.fr       */
+/*   Updated: 2026/02/14 10:53:53 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,4 +43,17 @@ void	stack_add_back(t_stack **stack, t_stack *new)
 	while (back->next)
 		back = back -> next;
 	back->next = new;
+}
+
+void	update_index(t_stack *stack)
+{
+	int	i;
+
+	i = 0;
+	while (stack)
+	{
+		stack->index = i;
+		stack = stack->next;
+		i++;
+	}
 }
