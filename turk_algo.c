@@ -6,30 +6,30 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:36:07 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/14 13:40:08 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 15:30:48 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack *target(int min, int max, int value, t_stack *b)
+t_stack	*target(int min, int max, int value, t_stack *b)
 {
-	t_stack *target;
-	t_stack *tmp;
+	t_stack	*target;
+	t_stack	*tmp;
 
-	if(value > max || value < min)
+	if (value > max || value < min)
 	{
 		tmp = b;
-		while(tmp)
+		while (tmp)
 		{
-			if(tmp->value == max)
-				return tmp;
+			if (tmp->value == max)
+				return (tmp);
 			tmp = tmp->next;
 		}
 	}
 	tmp = b;
 	target = NULL;
-	while(tmp)
+	while (tmp)
 	{
 		if ((tmp->value < value) && (!target || tmp->value > target->value))
 			target = tmp;
@@ -38,34 +38,28 @@ t_stack *target(int min, int max, int value, t_stack *b)
 	return (target);
 }
 
-t_stack     *be_or_not_to_be(t_stack *b, int value)
+t_stack	*be_or_not_to_be(t_stack *b, int value)
 {
 	t_stack	*tmp;
 	int		max;
 	int		min;
 
-    if(!b)
-        return NULL;
+	if (!b)
+		return (NULL);
 	min = b->value;
 	max = b->value;
 	tmp = b;
-	while(tmp)
+	while (tmp)
 	{
-		if(max < tmp->value)
+		if (max < tmp->value)
 			max = tmp->value;
-		if(min > tmp->value)
+		if (min > tmp->value)
 			min = tmp->value;
 		tmp = tmp->next;
 	}
 	return (target(min, max, value, b));
 }
 
-// calculate how many moves it takes to bring a number from A to its correct position in B 
-//then actually move it there
-//step 1: find the position of the number and here i have a relation <cost_a = min(position, size_a - position)>
-// i use cost_a = min(pos, size_a - pos) to found the smallest number of moves to bring a number to the top od stack_A;
-// size_a - pos how many reverse rotations (rra) u need !
-// combine rotations
 void	how_much_pain_for_this_number(t_stack **a, t_stack **b, t_stack *node)
 {
 	while (node->cost_a > 0 && node->cost_b > 0
@@ -86,14 +80,8 @@ void	how_much_pain_for_this_number(t_stack **a, t_stack **b, t_stack *node)
 			rra(a);
 		node->cost_a--;
 	}
-	while (node->cost_b > 0)
-	{
-		if (node->dir_b == 1)
-			rb(b);
-		else
-			rrb(b);
-		node->cost_b--;
-	}
+	while (node->cost_b-- > 0)
+		rotate_b_once(b, node->dir_b);
 	pb(a, b);
 }
 
@@ -107,135 +95,25 @@ int	get_total_cost(t_stack *node)
 	}
 	return (node->cost_a + node->cost_b);
 }
+
 void	calc_costs(t_stack **a, t_stack **b, t_stack *node)
 {
-	t_stack *target;
-	t_stack *tmp;
-	int size_a;
-	int size_b;
-	int	pos_a;
-	int	pos_b;
+	t_stack	*target;
+	t_stack	*tmp;
+	int		size_a;
+	int		size_b;
+	int		pos;
 
 	size_a = stack_size(*a);
 	size_b = stack_size(*b);
-
 	update_index(*a);
 	update_index(*b);
-	//find the position of node in stack_a
-	pos_a = 0;
-	tmp = *a;
-	while(tmp)
-	{
-		if (tmp->value == node->value)
-			break;
-		pos_a++;
-		tmp = tmp->next;
-	}
-	// reverse
-	if (pos_a <= size_a / 2)
-	{
-		node->cost_a = pos_a;
-		node->dir_a = 1;
-	}
-	else
-	{
-		node->cost_a = size_a - pos_a;
-		node->dir_a = -1;
-	}
-	// also to b
-	target = bee_or_not_to_bee(*b, node->value);
-	// printf("%i -> %i ", node->value, target->value);
+	pos = find_position(*a, node->value);
+	set_cost_and_dir(node, pos, size_a, 1);
+	target = be_or_not_to_be(*b, node->value);
 	if (!target)
-		pos_b  = 0;
-	else 
-	{
-		pos_b = 0;
-		tmp = *b;
-
-		while(tmp)
-		{
-			if (tmp->value == target->value)
-				break;
-			pos_b++;
-			tmp = tmp->next;
-		}
-	}
-	if (pos_b <= size_b / 2)
-	{
-		node->cost_b = pos_b;
-		node->dir_b = 1;
-	}
+		pos = 0;
 	else
-	{
-		node->cost_b = size_b - pos_b;
-		node->dir_b = -1;
-	}
-}
-// this function manager of cheapest moves.
-void	push_the_laziest_number(t_stack **a, t_stack **b)
-{
-	//starting by scanning stack_a
-	t_stack *tmp;
-	t_stack *cheapest;
-	int		min_cost;
-	int		current_cost;
-
-	tmp = *a;
-	cheapest = NULL;
-	min_cost = INT_MAX;
-
-	while(tmp)
-	{
-		calc_costs(a, b, tmp);
-		current_cost = get_total_cost(tmp);
-		// printf("(%i)\n", current_cost);
-		if(current_cost < min_cost)
-		{
-			min_cost = current_cost;
-			cheapest = tmp;
-		}
-		tmp = tmp->next;
-	}
-	// printf("%i %i %i\n", cheapest->cost_a, cheapest->cost_b, min_cost);
-	if (cheapest)
-		how_much_pain_for_this_number(a, b, cheapest);
-}
-
-void	final_rotate(t_stack **a)
-{
-	t_stack *tmp;
-	int min;
-	int min_pos;
-	int i;
-	int size;
-
-	tmp = *a;
-	min = tmp->value;
-	min_pos = 0;
-	i = 0;
-	size = stack_size(*a);
-
-	// Find min value and its position
-	while (tmp)
-	{
-		if (tmp->value < min)
-		{
-			min = tmp->value;
-			min_pos = i;
-		}
-		tmp = tmp->next;
-		i++;
-	}
-
-	// Rotate in the cheapest direction
-	if (min_pos <= size / 2)
-	{
-		while ((*a)->value != min)
-			ra(a);
-	}
-	else
-	{
-		while ((*a)->value != min)
-			rra(a);
-	}
+		pos = find_position(*b, target->value);
+	set_cost_and_dir(node, pos, size_b, 0);
 }

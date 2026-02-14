@@ -1,26 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_args.c                                         :+:      :+:    :+:   */
+/*   split_args.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/01/18 02:23:13 by doabrour          #+#    #+#             */
-/*   Updated: 2026/01/24 19:44:54 by doabrour         ###   ########.fr       */
+/*   Created: 2026/02/14 15:27:02 by doabrour          #+#    #+#             */
+/*   Updated: 2026/02/14 15:27:12 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <stdlib.h>
 #include "push_swap.h"
 
 int	lenght(char *str)
 {
-	int len;
+	int	len;
 
 	len = 0;
-	while(str[len])
+	while (str[len])
 		len++;
-	return len;
+	return (len);
 }
 
 int	is_sep(char c, char *charset)
@@ -36,6 +35,7 @@ int	is_sep(char c, char *charset)
 	}
 	return (0);
 }
+
 int	count_word(char *str, char *charset)
 {
 	int	index;
@@ -58,6 +58,7 @@ int	count_word(char *str, char *charset)
 	}
 	return (count_word);
 }
+
 char	*ft_strdup(char *start, int len)
 {
 	char	*tmp;
@@ -75,6 +76,7 @@ char	*ft_strdup(char *start, int len)
 	tmp[index] = '\0';
 	return (tmp);
 }
+
 char	**split_args(char *str, char charset)
 {
 	int		index;
