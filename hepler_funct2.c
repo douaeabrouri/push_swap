@@ -6,7 +6,13 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 11:11:07 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/14 11:11:12 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 13:50:00 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+int calculate_cost(int pos, int size)
+{
+	if(pos <= size / 2)
+		return (pos);
+	return (size - pos);
+}

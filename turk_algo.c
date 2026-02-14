@@ -6,36 +6,17 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:36:07 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/12 15:58:13 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 13:40:08 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 
-t_stack     *bee_or_not_to_bee(t_stack *b, int value)
+t_stack *target(int min, int max, int value, t_stack *b)
 {
-	t_stack *tmp;
 	t_stack *target;
-	int max;
-	int min;
+	t_stack *tmp;
 
-    if(!b)
-        return NULL;
-	//find max and min
-	min = b->value;
-	max = b->value;
-	tmp = b;
-	while(tmp)
-	{
-		if(max < tmp->value)
-			max = tmp->value;
-		if(min > tmp->value)
-			min = tmp->value;
-		tmp = tmp->next;
-	}
-	//do the  case 1 & 2
-	//case 1:value is BIGGER than everything in B
-	//case 2:value is smaller than everything in B
 	if(value > max || value < min)
 	{
 		tmp = b;
@@ -46,7 +27,6 @@ t_stack     *bee_or_not_to_bee(t_stack *b, int value)
 			tmp = tmp->next;
 		}
 	}
-	//case 3: value fits between two numbers
 	tmp = b;
 	target = NULL;
 	while(tmp)
@@ -58,15 +38,36 @@ t_stack     *bee_or_not_to_bee(t_stack *b, int value)
 	return (target);
 }
 
+t_stack     *be_or_not_to_be(t_stack *b, int value)
+{
+	t_stack	*tmp;
+	int		max;
+	int		min;
+
+    if(!b)
+        return NULL;
+	min = b->value;
+	max = b->value;
+	tmp = b;
+	while(tmp)
+	{
+		if(max < tmp->value)
+			max = tmp->value;
+		if(min > tmp->value)
+			min = tmp->value;
+		tmp = tmp->next;
+	}
+	return (target(min, max, value, b));
+}
 
 // calculate how many moves it takes to bring a number from A to its correct position in B 
 //then actually move it there
+//step 1: find the position of the number and here i have a relation <cost_a = min(position, size_a - position)>
+// i use cost_a = min(pos, size_a - pos) to found the smallest number of moves to bring a number to the top od stack_A;
+// size_a - pos how many reverse rotations (rra) u need !
+// combine rotations
 void	how_much_pain_for_this_number(t_stack **a, t_stack **b, t_stack *node)
 {
-	//step 1: find the position of the number and here i have a relation <cost_a = min(position, size_a - position)>
-	// i use cost_a = min(pos, size_a - pos) to found the smallest number of moves to bring a number to the top od stack_A;
-	// size_a - pos how many reverse rotations (rra) u need !
-	// combine rotations
 	while (node->cost_a > 0 && node->cost_b > 0
 		&& node->dir_a == node->dir_b)
 	{
@@ -77,8 +78,6 @@ void	how_much_pain_for_this_number(t_stack **a, t_stack **b, t_stack *node)
 		node->cost_a--;
 		node->cost_b--;
 	}
-
-	// finish A
 	while (node->cost_a > 0)
 	{
 		if (node->dir_a == 1)
@@ -87,8 +86,6 @@ void	how_much_pain_for_this_number(t_stack **a, t_stack **b, t_stack *node)
 			rra(a);
 		node->cost_a--;
 	}
-
-	// finish B
 	while (node->cost_b > 0)
 	{
 		if (node->dir_b == 1)
