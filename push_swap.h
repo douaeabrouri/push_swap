@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 04:33:16 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/14 15:55:08 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 17:09:59 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,6 @@ void	calc_costs(t_stack **a, t_stack **b, t_stack *node);
 int		calculate_cost(int pos, int size);
 int		find_position(t_stack *stack, int value);
 int		find_min_position(t_stack *a, int *min_value);
-void	rotate_b_once(t_stack **b, int dir);
 void	push_the_laziest_number(t_stack **a, t_stack **b);
 void	final_rotate(t_stack **a);
 

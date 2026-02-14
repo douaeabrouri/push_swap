@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:36:07 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/14 15:30:48 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 18:39:13 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,8 +80,11 @@ void	how_much_pain_for_this_number(t_stack **a, t_stack **b, t_stack *node)
 			rra(a);
 		node->cost_a--;
 	}
-	while (node->cost_b-- > 0)
+	while (node->cost_b > 0)
+	{
 		rotate_b_once(b, node->dir_b);
+		node->cost_b--;
+	}
 	pb(a, b);
 }
 
@@ -109,7 +112,7 @@ void	calc_costs(t_stack **a, t_stack **b, t_stack *node)
 	update_index(*a);
 	update_index(*b);
 	pos = find_position(*a, node->value);
-	set_cost_and_dir(node, pos, size_a, 1);
+	set_cost_and_dir( node, pos, size_a, 1);
 	target = be_or_not_to_be(*b, node->value);
 	if (!target)
 		pos = 0;

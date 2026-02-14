@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 11:32:48 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/14 15:52:58 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 17:15:44 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,6 @@ void	sort_five(t_stack **a, t_stack **b)
 	pa(a, b);
 	if (size == 5)
 		pa(a, b);
-}
-
-void	rotate_b_once(t_stack **b, int dir)
-{
-	if (dir == 1)
-		rb(b);
-	else
-		rrb(b);
 }
 
 void	set_cost_and_dir(t_stack *node, int pos, int size, int is_a)

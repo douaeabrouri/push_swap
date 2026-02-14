@@ -6,7 +6,7 @@
 #    By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/24 19:35:39 by doabrour          #+#    #+#              #
-#    Updated: 2026/02/08 03:03:10 by doabrour         ###   ########.fr        #
+#    Updated: 2026/02/14 17:08:28 by doabrour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,23 +28,27 @@ RESET		= \033[0m
 
 NAME		:= push_swap
 
-SRCS		:=parsing.c \
-			free_stack.c \
-			error_exit.c \
-			is_sorted.c \
-			indexing.c \
-			push_algo.c \
-			push_swap.c \
-			reverse_algo.c \
-			rotate_algo.c \
+SRCS		:=error_exit.c \
+			free_stack.c	\
+			helper_func.c	\
+			helper_func2.c	\
+			indexing.c      \
+			is_sorted.c 	\
+			parsing.c 		\
+			parsing2.c 		\
+			push_algo.c 	\
+			push_swap.c 	\
+			reverse_algo.c 	\
+			rotate_algo.c 	\
 			sorted_three_in_a.c \
-			split_args.c \
-			stack_size.c \
-			swap_algo.c \
-			turk_algo.c \
-			helper_func.c
+			split_args.c 	\
+			stack_size.c 	\
+			swap_algo.c 	\
+			turk_algo.c 	\
+			turk2.c 		\
+			turk3.c 	
 
-
+			
 OBJS		= $(SRCS:.c=.o)
 TOTAL_FILES	= $(words $(SRCS))
 CURRENT		= 0

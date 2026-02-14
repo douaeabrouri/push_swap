@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/06 15:28:15 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/14 13:51:15 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 17:18:49 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -132,3 +132,4 @@ void	push_back_to_a(t_stack **a, t_stack **b)
 	rotate_to_target(a, target);
 	pa(a, b);
 }
+ 

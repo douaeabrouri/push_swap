@@ -6,17 +6,12 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 06:44:19 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/14 15:42:11 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 17:34:35 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "push_swap.h"
 #include <stdio.h>
-
-// void	leaks()
-// {
-// 	system("leaks -q push_swap");
-// }
 
 void	sort_small(t_stack **a, t_stack **b, int size)
 {
@@ -41,7 +36,6 @@ void	sort_large(t_stack **a, t_stack **b, int size)
 	sort_five(a, b);
 	while (*b != NULL)
 		push_back_to_a(a, b);
-	final_rotate(a);
 }
 
 int	main(int argc, char **argv)
@@ -54,7 +48,6 @@ int	main(int argc, char **argv)
 	stack_b = NULL;
 	stack_a = NULL;
 	numbers = make_it_clear(argc, argv);
-	// atexit(leaks);
 	if (!numbers)
 		return (0);
 	fill_stack(numbers, &stack_a);
@@ -68,6 +61,7 @@ int	main(int argc, char **argv)
 		sort_small(&stack_a, &stack_b, size_a);
 	else
 		sort_large(&stack_a, &stack_b, size_a);
+	final_rotate(stack_a);
 	free_stack(&stack_a);
 	free_stack(&stack_b);
 	return (0);
