@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/14 15:17:46 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/14 18:38:08 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 19:32:33 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	find_position(t_stack *stack, int value)
 	t_stack	*tmp;
 	int		pos;
 
-	pos++;
+	pos = 0;
 	tmp = stack;
 	while (tmp)
 	{

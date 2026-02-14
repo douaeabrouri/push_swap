@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:36:07 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/14 18:39:13 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 19:02:29 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -112,7 +112,7 @@ void	calc_costs(t_stack **a, t_stack **b, t_stack *node)
 	update_index(*a);
 	update_index(*b);
 	pos = find_position(*a, node->value);
-	set_cost_and_dir( node, pos, size_a, 1);
+	set_cost_and_dir(node, pos, size_a, 1);
 	target = be_or_not_to_be(*b, node->value);
 	if (!target)
 		pos = 0;

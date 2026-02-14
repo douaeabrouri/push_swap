@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/18 04:33:16 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/14 17:09:59 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 18:59:16 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ void	push_cheapest_to_b(t_stack **a, t_stack **b);
 t_stack	*find_target_in_a(t_stack *a, int x, int min);
 void	rotate_to_target(t_stack **a, t_stack *target);
 void	push_back_to_a(t_stack **a, t_stack **b);
-int		find_min_position2(t_stack *stack);
+int		find_min_position_(t_stack *stack);
 void	push_smallest_to_b(t_stack **a, t_stack **b);
 void	sort_five(t_stack **a, t_stack **b);
 void	rotate_b_once(t_stack **b, int dir);

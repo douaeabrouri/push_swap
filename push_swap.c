@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 06:44:19 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/14 17:34:35 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/14 19:34:38 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ void	sort_large(t_stack **a, t_stack **b, int size)
 	sort_five(a, b);
 	while (*b != NULL)
 		push_back_to_a(a, b);
+	final_rotate(a);
 }
 
 int	main(int argc, char **argv)
@@ -61,7 +62,6 @@ int	main(int argc, char **argv)
 		sort_small(&stack_a, &stack_b, size_a);
 	else
 		sort_large(&stack_a, &stack_b, size_a);
-	final_rotate(stack_a);
 	free_stack(&stack_a);
 	free_stack(&stack_b);
 	return (0);
