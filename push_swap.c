@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/02/01 06:44:19 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/14 19:34:38 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/15 03:34:48 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,6 +52,7 @@ int	main(int argc, char **argv)
 	if (!numbers)
 		return (0);
 	fill_stack(numbers, &stack_a);
+	free_split(numbers);
 	size_a = stack_size(stack_a);
 	if (is_sorted(stack_a))
 	{
