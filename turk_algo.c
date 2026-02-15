@@ -6,7 +6,7 @@
 /*   By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/01/24 19:36:07 by doabrour          #+#    #+#             */
-/*   Updated: 2026/02/14 19:02:29 by doabrour         ###   ########.fr       */
+/*   Updated: 2026/02/15 20:14:30 by doabrour         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,6 @@ int	get_total_cost(t_stack *node)
 void	calc_costs(t_stack **a, t_stack **b, t_stack *node)
 {
 	t_stack	*target;
-	t_stack	*tmp;
 	int		size_a;
 	int		size_b;
 	int		pos;

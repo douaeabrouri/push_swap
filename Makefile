@@ -6,25 +6,20 @@
 #    By: doabrour <doabrour@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2026/01/24 19:35:39 by doabrour          #+#    #+#              #
-#    Updated: 2026/02/14 17:08:28 by doabrour         ###   ########.fr        #
+#    Updated: 2026/02/15 18:46:12 by doabrour         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 # ================================ COLORS ==================================== #
-RED			= \033[0;31m
-GREEN		= \033[0;32m
-YELLOW		= \033[0;33m
-BLUE		= \033[0;34m
-PURPLE		= \033[0;35m
-CYAN		= \033[0;36m
-BOLD_RED	= \033[1;31m
-BOLD_GREEN	= \033[1;32m
-BOLD_YELLOW	= \033[1;33m
-BOLD_BLUE	= \033[1;34m
-BOLD_PURPLE	= \033[1;35m
-BOLD_CYAN	= \033[1;36m
-BOLD_WHITE	= \033[1;37m
-RESET		= \033[0m
+CYAN		:= \033[0;36m
+BOLD_WHITE	:= \033[1;37m
+BOLD_GREEN	:= \033[1;32m
+BOLD_YELLOW	:= \033[1;33m
+BOLD_PURPLE	:= \033[1;35m
+BOLD_CYAN	:= \033[1;36m
+RESET		:= \033[0m
+
+# ================================ VARIABLES ===================================== #
 
 NAME		:= push_swap
 
@@ -48,12 +43,11 @@ SRCS		:=error_exit.c \
 			turk2.c 		\
 			turk3.c 	
 
-			
-OBJS		= $(SRCS:.c=.o)
-TOTAL_FILES	= $(words $(SRCS))
-CURRENT		= 0
+RM 			:= rm -f
+CFLAGS 		:= -Wall -Wextra -Werror 
+OBJS		:= $(SRCS:.c=.o)
 
-# ================================ RULES ===================================== #
+# ================================ TARGETS===================================== #
 
 all: header $(NAME) footer
 
@@ -75,22 +69,10 @@ header:
 	@echo "$(BOLD_GREEN)        🚀 Starting compilation...$(RESET)"
 	@echo ""
 
-define show_progress
-	$(eval CURRENT=$(shell echo $$(($(CURRENT)+1))))
-	$(eval PERCENT=$(shell echo $$(($(CURRENT)*100/$(TOTAL_FILES)))))
-	@printf "$(BOLD_CYAN)[$(RESET)"
-	@printf "$(BOLD_GREEN)"
-	@for i in `seq 1 $(shell echo $$(($(PERCENT)/2)))`; do printf "█"; done
-	@printf "$(RESET)"
-	@for i in `seq 1 $(shell echo $$((50-$(PERCENT)/2)))`; do printf "░"; done
-	@printf "$(BOLD_CYAN)]$(RESET) "
-	@printf "$(BOLD_GREEN)%3d%%$(RESET) " $(PERCENT)
-endef
 
 %.o: %.c
-	@$(call show_progress)
 	@printf "$(CYAN)⚙  $(RESET)Compiling: $(BOLD_WHITE)%-25s$(RESET)" $<
-	@$(CC) $(CFLAGS) -c $< -o $@ 2>/dev/null || (printf "$(BOLD_RED) ✗$(RESET)\n"; exit 1)
+	@$(CC) $(CFLAGS) -c $< -o $@
 	@printf "$(BOLD_GREEN) ✓$(RESET)\n"
 
 $(NAME): $(OBJS)
@@ -106,7 +88,7 @@ footer:
 	@echo "        ║                                                               ║"
 	@echo "        ║               ✨  COMPILATION SUCCESSFUL! ✨                 	║"
 	@echo "        ║                                                               ║"
-	@echo "        ║                  $(BOLD_CYAN)./$(NAME) is ready!$(BOLD_GREEN)                      ║"
+	@echo "        ║                  $(BOLD_CYAN)./$(NAME) is ready!$(BOLD_GREEN) 			║"
 	@echo "        ║                                                               ║"
 	@echo "        ╚═══════════════════════════════════════════════════════════════╝"
 	@echo "$(RESET)"
@@ -115,54 +97,16 @@ footer:
 
 clean:
 	@echo ""
-	@echo "$(BOLD_RED)"
-	@echo "        ╔═══════════════════════════════════════════════════════════════╗"
-	@echo "        ║                                                               ║"
-	@echo "        ║                🧹  CLEANING IN PROGRESS  🧹                  	║"
-	@echo "        ║                                                               ║"
-	@echo "        ╚═══════════════════════════════════════════════════════════════╝"
-	@echo "$(RESET)"
+	@echo "$(BOLD_YELLOW)       🧹 Cleaning object files...$(RESET)"
+	@$(RM) $(OBJS)
+	@echo  "$(BOLD_GREEN)       ✓ Clean complete!$(RESET)"
 	@echo ""
-	@COUNT=0; \
-	for file in $(OBJS); do \
-		if [ -f $$file ]; then \
-			COUNT=$$((COUNT+1)); \
-			printf "$(RED)        🗑  Removing: $(BOLD_WHITE)%-30s$(RESET)" $$file; \
-			$(RM) $$file; \
-			printf "$(BOLD_RED) ✗$(RESET)\n"; \
-		fi; \
-	done; \
-	if [ $$COUNT -eq 0 ]; then \
-		echo "$(YELLOW)        ⚠  Nothing to clean!$(RESET)"; \
-	else \
-		echo ""; \
-		echo "$(BOLD_GREEN)        ✨ Removed $$COUNT object file(s)!$(RESET)"; \
-	fi
-	@echo ""
-
 fclean: clean
-	@echo "$(BOLD_RED)"
-	@echo "        ╔═══════════════════════════════════════════════════════════════╗"
-	@echo "        ║                                                               ║"
-	@echo "        ║                 🔥  FULL CLEAN MODE  🔥                      	║"
-	@echo "        ║                                                               ║"
-	@echo "        ╚═══════════════════════════════════════════════════════════════╝"
-	@echo "$(RESET)"
+	@echo "$(BOLD_YELLOW)       🗑️  Removing executable...$(RESET)"
+	@$(RM) $(NAME)
+	@echo "$(BOLD_GREEN)       ✓ Full clean complete!$(RESET)"
 	@echo ""
-	@if [ -f $(NAME) ]; then \
-		printf "$(RED)        💥 Destroying executable: $(BOLD_WHITE)$(NAME)$(RESET)"; \
-		$(RM) $(NAME); \
-		printf "$(BOLD_RED) ✗$(RESET)\n"; \
-		echo ""; \
-		echo "$(BOLD_GREEN)        🎉 Everything is wiped clean!$(RESET)"; \
-	else \
-		echo "$(YELLOW)        ⚠  No executable to remove!$(RESET)"; \
-	fi
-	@echo ""
-
 re: fclean all
-
-bonus: all
 
 norm:
 	@echo ""
@@ -187,4 +131,4 @@ help:
 	@echo "        $(BOLD_YELLOW)make help$(RESET)     - Show this help message"
 	@echo ""
 
-.PHONY: all clean fclean re bonus norm help header footer
+.PHONY: all clean fclean re  norm help header footer
