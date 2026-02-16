@@ -118,17 +118,7 @@ void	rotate_to_target(t_stack **a, t_stack *target)
 // Push back from B to A (NO final rotation inside!)
 void	push_back_to_a(t_stack **a, t_stack **b)
 {
-	t_stack	*tmp;
-	t_stack	*target;
-	int		min;
-	int		max;
-
 	if (!b || !(*b) || !a || !(*a))
 		return ;
-	tmp = *a;
-	min = tmp->value;
-	max = tmp->value;
-	target = find_target_in_a(*a, (*b)->value, min);
-	rotate_to_target(a, target);
 	pa(a, b);
 }
